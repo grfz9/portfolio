@@ -299,27 +299,33 @@
     <h2 class="section-title">Projets</h2>
   </div>
   <div class="projects-grid">
-    <div class="proj-card">
-      <div class="proj-icon">♟️</div>
-      <div class="proj-tag">Java</div>
-      <h3>Puissance 4 en Java</h3>
-      <p>Jeu en ligne de commande avec logique complète, gestion des victoires, structure orientée objet.</p>
-      <div class="proj-pills"><span>Java</span><span>IntelliJ</span><span>POO</span><span>IUT Montreuil</span></div>
-    </div>
-    <div class="proj-card">
-      <div class="proj-icon">🌐</div>
-      <div class="proj-tag">Web</div>
-      <h3>Site vitrine Wix Studio</h3>
-      <p>Conception et mise en ligne d'un site professionnel complet avec Wix Studio.</p>
-      <div class="proj-pills"><span>Wix Studio</span><span>Web design</span><span>IUT Montreuil</span></div>
-    </div>
-    <div class="proj-card">
-      <div class="proj-icon">🔧</div>
-      <div class="proj-tag">Hardware</div>
-      <h3>Montage &amp; Maintenance PC</h3>
-      <p>Assemblage de composants, installation d'OS, diagnostic et résolution de pannes depuis 2022.</p>
-      <div class="proj-pills"><span>Hardware</span><span>Windows</span><span>Diagnostic</span><span>BIOS</span></div>
-    </div>
+    <a href="projets/puissance4.html" style="color:inherit; text-decoration:none; display:block;">
+      <div class="proj-card">
+        <div class="proj-icon">♟️</div>
+        <div class="proj-tag">Java</div>
+        <h3>Puissance 4 en Java</h3>
+        <p>Jeu en ligne de commande avec logique complète, gestion des victoires, structure orientée objet.</p>
+        <div class="proj-pills"><span>Java</span><span>IntelliJ</span><span>POO</span><span>IUT Montreuil</span></div>
+      </div>
+    </a>
+    <a href="projets/wix-studio.html" style="color:inherit; text-decoration:none; display:block;">
+      <div class="proj-card">
+        <div class="proj-icon">🌐</div>
+        <div class="proj-tag">Web</div>
+        <h3>Site vitrine Wix Studio</h3>
+        <p>Conception et mise en ligne d'un site professionnel complet avec Wix Studio.</p>
+        <div class="proj-pills"><span>Wix Studio</span><span>Web design</span><span>IUT Montreuil</span></div>
+      </div>
+    </a>
+    <a href="projets/montage-pc.html" style="color:inherit; text-decoration:none; display:block;">
+      <div class="proj-card">
+        <div class="proj-icon">🔧</div>
+        <div class="proj-tag">Hardware</div>
+        <h3>Montage &amp; Maintenance PC</h3>
+        <p>Assemblage de composants, installation d'OS, diagnostic et résolution de pannes depuis 2022.</p>
+        <div class="proj-pills"><span>Hardware</span><span>Windows</span><span>Diagnostic</span><span>BIOS</span></div>
+      </div>
+    </a>
   </div>
 </section>
 
@@ -589,8 +595,6 @@ function update(){
 
   const alive = invaders.filter(i => i.alive);
 
-  // La formation entière se déplace ensemble : une seule vitesse partagée,
-  // pas de vitesse par envahisseur -> plus de mouvement erratique.
   const killedRatio = 1 - alive.length / invaders.length;
   groupSpeed = 1 + killedRatio * 2.5;
 
@@ -723,7 +727,7 @@ const revealObserver = new IntersectionObserver((entries) => {
 }, { threshold: 0.15 });
 document.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
 
-/* ---- Flou des sections hors-focus : seule la section au centre de l'écran reste nette ---- */
+/* ---- Flou des sections hors-focus ---- */
 const focusObserver = new IntersectionObserver((entries) => {
   entries.forEach(entry => {
     entry.target.classList.toggle('blurred', !entry.isIntersecting);
