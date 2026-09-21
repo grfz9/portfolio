@@ -364,8 +364,7 @@ header.topbar{
 .pill:hover{color:var(--ac,var(--c1));border-color:color-mix(in srgb,var(--ac,var(--c1)) 45%,transparent);transform:translateY(-2px);}
 
 /* ---------- 11. Laboratoire (apps) ---------- */
-.lab-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;}
-@media (max-width:900px){.lab-grid{grid-template-columns:repeat(2,1fr);}}
+.lab-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:16px;}
 @media (max-width:520px){.lab-grid{grid-template-columns:1fr;}}
 .lab-card{cursor:pointer;text-align:left;display:flex;flex-direction:column;gap:10px;min-height:172px;}
 .lab-card .lab-ico{font-size:1.7rem;}
@@ -486,6 +485,7 @@ footer.site a{color:var(--c1);}
 /* ---------- 17. Apps : jeux & outils ---------- */
 .game-wrap{display:flex;flex-direction:column;align-items:center;gap:12px;padding:16px;}
 canvas.game{background:#04060c;border-radius:10px;border:1px solid var(--border);max-width:100%;image-rendering:pixelated;touch-action:none;}
+canvas.game:focus{outline:none;border-color:var(--c1);box-shadow:0 0 0 2px color-mix(in srgb,var(--c1) 30%,transparent);}
 .game-hint{font-family:var(--mono);font-size:.74rem;color:var(--text-faint);text-align:center;}
 
 .p4-board{
