@@ -281,13 +281,24 @@ header.topbar{
   background:var(--surface-2);border-bottom:1px solid var(--border);flex:0 0 auto;
 }
 .win__bar:active{cursor:grabbing;}
-.win__dots{display:flex;gap:7px;flex:0 0 auto;}
+.win__dots{display:flex;gap:10px;flex:0 0 auto;}
 .win__dots button{
-  width:12px;height:12px;border-radius:50%;border:none;cursor:pointer;padding:0;
-  font-size:8px;line-height:1;color:transparent;transition:color .15s;
+  width:14px;height:14px;border-radius:50%;border:none;cursor:pointer;padding:0;position:relative;
+  font-size:10px;line-height:1;font-weight:700;color:rgba(0,0,0,.5);transition:color .15s,transform .15s;
+  display:grid;place-items:center;
 }
-.win__dots button:hover{color:rgba(0,0,0,.6);}
+/* zone cliquable élargie sans chevauchement entre pastilles voisines */
+.win__dots button::after{content:"";position:absolute;inset:-11px -5px;}
+.win__dots button:hover{color:rgba(0,0,0,.85);transform:scale(1.15);}
 .wd-close{background:#ff5f56;} .wd-min{background:#ffbd2e;} .wd-max{background:#27c93f;}
+
+/* bouton de fermeture principal, large et sans ambiguïté */
+.win__x{
+  flex:0 0 auto;width:38px;height:30px;border-radius:9px;border:1px solid transparent;
+  background:transparent;color:var(--text-faint);cursor:pointer;font-size:.95rem;line-height:1;
+  display:grid;place-items:center;transition:.15s var(--ease);
+}
+.win__x:hover{background:var(--c-danger);border-color:var(--c-danger);color:#fff;}
 .win__title{
   font-family:var(--mono);font-size:.78rem;color:var(--text-dim);
   white-space:nowrap;overflow:hidden;text-overflow:ellipsis;flex:1;text-align:center;
@@ -597,6 +608,9 @@ canvas.game:focus{outline:none;border-color:var(--c1);box-shadow:0 0 0 2px color
   @keyframes sheetIn{from{transform:translateY(110%);}to{transform:none;}}
   .win.maximized{top:0!important;bottom:70px!important;height:calc(100vh - 70px)!important;border-radius:0;}
   .win__resize{display:none;}
+  .win__bar{padding:12px 12px;}
+  .win__x{width:44px;height:38px;font-size:1.05rem;background:var(--surface-2);border-color:var(--border);}
+  .win__dots button::after{inset:-14px -5px;}
   .win-overlay.show{display:block;}
   .dock{bottom:10px;padding:7px 9px;}
   .dock-item{width:42px;height:42px;font-size:1.1rem;}
