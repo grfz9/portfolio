@@ -270,7 +270,9 @@ const WM = (() => {
   function makeDraggable(el, handle){
     let sx, sy, sl, st, dragging = false;
     handle.addEventListener('pointerdown', (e) => {
-      if(e.target.closest('.win__dots') || isMobile() || el.classList.contains('maximized')) return;
+      // les boutons de la barre ne doivent pas déclencher le glisser : la capture
+      // du pointeur leur volerait le clic
+      if(e.target.closest('.win__dots, .win__x') || isMobile() || el.classList.contains('maximized')) return;
       dragging = true;
       sx = e.clientX; sy = e.clientY;
       sl = el.offsetLeft; st = el.offsetTop;
@@ -332,7 +334,7 @@ const WM = (() => {
           <button class="wd-max"   title="Agrandir" aria-label="Agrandir la fenêtre">▢</button>
         </div>
         <div class="win__title">${cfg.icon || ''} <b>${esc(cfg.title)}</b></div>
-        <div style="width:56px"></div>
+        <button class="win__x" title="Fermer la fenêtre (ou touche Échap)" aria-label="Fermer la fenêtre">✕</button>
       </header>
       <div class="win__body${cfg.flush ? ' flush' : ''}"></div>
       <div class="win__resize" title="Redimensionner"></div>`;
@@ -346,6 +348,7 @@ const WM = (() => {
     open.set(id, { el, cleanup });
 
     $('.wd-close', el).addEventListener('click', () => close(id));
+    $('.win__x',   el).addEventListener('click', () => close(id));
     $('.wd-min',   el).addEventListener('click', () => el.classList.add('minimized'));
     $('.wd-max',   el).addEventListener('click', () => {
       el.classList.toggle('maximized');
@@ -1085,7 +1088,6 @@ const PROJECTS = {
   puissance4: {
     title: 'Puissance 4 en Java', icon: '♟️', accent: 'var(--c4)', page: 'puissance4.html',
     tags: ['Java', 'IntelliJ', 'POO', 'IUT Montreuil'],
-    play: 'puissance4',
     html: `
       <p><b>Contexte —</b> projet de première année de BUT Informatique à l'IUT de Montreuil.
       L'objectif : mettre en pratique la programmation orientée objet sur un jeu complet, sans interface graphique.</p>
@@ -1105,9 +1107,10 @@ const PROJECTS = {
   wix: {
     title: 'Site vitrine Wix Studio', icon: '🌐', accent: 'var(--c3)', page: 'wix-studio.html',
     tags: ['Wix Studio', 'Web design', 'Responsive', 'IUT Montreuil'],
+    live: 'https://kleyerfinn.wixstudio.com/inspirationjo2028la',
     html: `
-      <p><b>Contexte —</b> conception et mise en ligne d'un site vitrine professionnel complet avec Wix Studio,
-      de la maquette jusqu'à la publication.</p>
+      <p><b>Contexte —</b> conception et mise en ligne d'un site vitrine complet avec Wix Studio,
+      de la maquette jusqu'à la publication. Le site est en ligne et consultable.</p>
       <h4>Ce que j'ai fait</h4>
       <ul>
         <li>Structure des pages et arborescence de navigation</li>
@@ -1148,14 +1151,14 @@ function projectApp(key){
     render(body){
       body.innerHTML = `
         <div class="tags" style="margin-bottom:18px">${p.tags.map(t => `<span class="tag">${t}</span>`).join('')}</div>
+        ${p.live ? `<a class="btn btn-primary btn-mini" style="margin-bottom:18px" href="${p.live}"
+             target="_blank" rel="noopener">Voir le site en ligne ↗</a>` : ''}
         ${p.html}
         <div class="win-actions">
-          ${p.play ? `<button class="btn btn-primary btn-mini" data-play="${p.play}" type="button">▶ Jouer maintenant</button>` : ''}
+          ${p.live ? `<a class="btn btn-primary btn-mini" href="${p.live}" target="_blank" rel="noopener">Voir le site en ligne ↗</a>` : ''}
           <a class="btn btn-ghost btn-mini" href="${p.page}">Page complète ↗</a>
           <button class="btn btn-ghost btn-mini" data-app="contact" type="button">En parler ✉️</button>
         </div>`;
-      const play = $('[data-play]', body);
-      if(play) play.addEventListener('click', () => WM.launch(play.dataset.play));
     }
   };
 }
