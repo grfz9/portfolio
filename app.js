@@ -402,7 +402,8 @@ function terminalApp(){
       const say = (html) => print(`<div class="term-out">${html}</div>`);
 
       const CMD = {
-        help: () => say(`commandes : ${Object.keys(CMD).concat(['ping','open','theme','echo','jeu'])
+        // « jeu » n'est volontairement listé nulle part : c'est l'easter egg
+        help: () => say(`commandes : ${Object.keys(CMD).concat(['ping','open','theme','echo'])
           .sort().map(c => `<b>${c}</b>`).join(' · ')}`),
         whoami: () => say(`<b>Billal Kaamouchi</b> — étudiant BTS SIO option SISR.<br>
           Objectif : administrateur réseau / analyste cybersécurité.<br>
@@ -487,7 +488,7 @@ function terminalApp(){
         else if(e.key === 'ArrowDown'){ e.preventDefault(); input.value = hIdx > 0 ? history[--hIdx] : (hIdx = -1, ''); }
         else if(e.key === 'Tab'){
           e.preventDefault();
-          const all = Object.keys(CMD).concat(['ping','open','theme','echo','jeu']);
+          const all = Object.keys(CMD).concat(['ping','open','theme','echo']);
           const m = all.filter(c => c.startsWith(input.value.toLowerCase()));
           if(m.length === 1) input.value = m[0];
           else if(m.length > 1) say(m.join('  '));
@@ -592,7 +593,7 @@ function puissance4App(){
   const R = 6, C = 7;
   return {
     title: 'Puissance 4 — vs IA', icon: '♟️', w: 520, h: 610, accent: 'var(--c4)',
-    render(body){
+    render(body, win){
       body.innerHTML = `
         <div class="p4-bar" style="margin-bottom:14px">
           <label class="field" style="flex-direction:row;align-items:center;gap:8px">Niveau
@@ -606,15 +607,34 @@ function puissance4App(){
         </div>
         <div class="p4-board" id="p4-board"></div>
         <div class="p4-status" id="p4-status" style="margin-top:14px"></div>
+        <div class="p4-status" id="p4-note" style="color:var(--text-faint);font-size:.78rem;min-height:1.4em"></div>
         <p style="font-size:.8rem;text-align:center;margin-top:8px">
           Vous jouez les <b style="color:var(--c4)">jaunes</b>, l'IA les <b style="color:var(--c5)">roses</b>.
           Portage web de mon projet Java — même logique de détection d'alignements.
         </p>`;
 
-      const boardEl = $('#p4-board', body), statusEl = $('#p4-status', body);
-      let grid, over, busy;
+      const boardEl = $('#p4-board', body), statusEl = $('#p4-status', body), noteEl = $('#p4-note', body);
+      let grid, over, busy, closeTimer = null;
+
+      // en fin de partie la fenêtre se referme seule ; ↻ annule le décompte
+      function cancelAutoClose(){
+        if(closeTimer){ clearInterval(closeTimer); closeTimer = null; }
+        noteEl.textContent = '';
+      }
+
+      function scheduleAutoClose(){
+        cancelAutoClose();
+        let n = 5;
+        noteEl.innerHTML = `la fenêtre se ferme dans <b id="p4-cd">${n}</b> s · ↻ pour rejouer`;
+        const cd = $('#p4-cd', noteEl);
+        closeTimer = setInterval(() => {
+          if(--n <= 0){ cancelAutoClose(); win.close(); return; }
+          cd.textContent = n;
+        }, 1000);
+      }
 
       function reset(){
+        cancelAutoClose();
         grid = Array.from({ length: R }, () => Array(C).fill(0));
         over = false; busy = false;
         draw();
@@ -719,6 +739,7 @@ function puissance4App(){
         statusEl.innerHTML = p === 1
           ? '🏆 <b style="color:var(--c1)">Gagné !</b> Vous avez battu l\'IA.'
           : '💀 <b style="color:var(--c5)">L\'IA remporte la partie.</b> Réessayez en montant d\'un cran.';
+        scheduleAutoClose();
       }
 
       function play(col){
@@ -729,7 +750,7 @@ function puissance4App(){
         draw();
         const w1 = winCells(grid, 1);
         if(w1) return finish(1, w1);
-        if(!moves(grid).length){ over = true; statusEl.textContent = '🤝 Match nul — plateau plein.'; return; }
+        if(!moves(grid).length){ over = true; statusEl.textContent = '🤝 Match nul — plateau plein.'; scheduleAutoClose(); return; }
 
         busy = true;
         statusEl.innerHTML = '<span style="color:var(--c5)">L\'IA réfléchit…</span>';
@@ -742,7 +763,7 @@ function puissance4App(){
           busy = false;
           const w2 = winCells(grid, 2);
           if(w2) return finish(2, w2);
-          if(!moves(grid).length){ over = true; statusEl.textContent = '🤝 Match nul — plateau plein.'; return; }
+          if(!moves(grid).length){ over = true; statusEl.textContent = '🤝 Match nul — plateau plein.'; scheduleAutoClose(); return; }
           statusEl.innerHTML = 'À vous de jouer.';
         }, 260);
       }
@@ -753,6 +774,7 @@ function puissance4App(){
       });
       $('#p4-new', body).addEventListener('click', reset);
       reset();
+      return cancelAutoClose;
     }
   };
 }
@@ -764,7 +786,8 @@ function invadersApp(){
     render(body, ctxWin){
       body.innerHTML = `
         <div class="game-wrap">
-          <canvas class="game" id="inv-cv" width="520" height="340"></canvas>
+          <canvas class="game" id="inv-cv" width="520" height="340" tabindex="0"
+                  aria-label="Space Invaders — flèches pour bouger, espace pour tirer"></canvas>
           <div class="p4-bar">
             <button class="btn btn-ghost btn-mini" id="inv-left" type="button">◀</button>
             <button class="btn btn-primary btn-mini" id="inv-fire" type="button">TIR</button>
@@ -772,6 +795,7 @@ function invadersApp(){
             <button class="btn btn-ghost btn-mini" id="inv-restart" type="button">↻</button>
           </div>
           <div class="game-hint">← → pour bouger · Espace pour tirer · les boutons marchent aussi au doigt</div>
+          <div class="game-hint" id="inv-note" style="min-height:1.3em"></div>
         </div>`;
 
       const cv = $('#inv-cv', body), ctx = cv.getContext('2d');
@@ -781,11 +805,30 @@ function invadersApp(){
       const C4 = css.getPropertyValue('--c4').trim() || '#ffb340';
       const C5 = css.getPropertyValue('--c5').trim() || '#ff5c93';
 
+      const noteEl = $('#inv-note', body);
       let player, bullets, foes, foeShots, score, lives, state, frame, raf;
-      let offX, offY, dir, speed;
+      let offX, offY, dir, speed, closeTimer = null;
       const keys = {};
 
+      // la partie terminée, la fenêtre se referme seule ; ↻ annule le décompte
+      function cancelAutoClose(){
+        if(closeTimer){ clearInterval(closeTimer); closeTimer = null; }
+        noteEl.textContent = '';
+      }
+
+      function scheduleAutoClose(){
+        cancelAutoClose();
+        let n = 5;
+        noteEl.innerHTML = `la fenêtre se ferme dans <b id="inv-cd">${n}</b> s · ↻ pour rejouer`;
+        const cd = $('#inv-cd', noteEl);
+        closeTimer = setInterval(() => {
+          if(--n <= 0){ cancelAutoClose(); ctxWin.close(); return; }
+          cd.textContent = n;
+        }, 1000);
+      }
+
       function reset(){
+        cancelAutoClose();
         player = { x: W / 2 - 16, y: H - 26, w: 32, h: 12, s: 5 };
         bullets = []; foeShots = []; foes = [];
         const cols = 8, rows = 4;
@@ -902,7 +945,7 @@ function invadersApp(){
       function loop(){
         if(state !== 'playing'){ endScreen(); return; }
         update(); render();
-        if(state !== 'playing'){ endScreen(); return; }
+        if(state !== 'playing'){ endScreen(); scheduleAutoClose(); return; }
         raf = requestAnimationFrame(loop);
       }
 
@@ -928,8 +971,13 @@ function invadersApp(){
       cv.addEventListener('click', () => { if(state === 'ready') begin(); else if(state !== 'playing'){ cancelAnimationFrame(raf); reset(); } });
 
       reset();
+      // on retire le clavier au terminal, sinon son champ intercepte tout
+      if(document.activeElement && document.activeElement.blur) document.activeElement.blur();
+      cv.focus({ preventScroll: true });
+
       return () => {
         cancelAnimationFrame(raf);
+        cancelAutoClose();
         document.removeEventListener('keydown', onKeyDown);
         document.removeEventListener('keyup', onKeyUp);
       };
@@ -1012,8 +1060,8 @@ const settingsApp = () => ({
       <h4>Raccourcis clavier</h4>
       <div style="font-family:var(--mono);font-size:.8rem;color:var(--text-dim);display:grid;gap:7px">
         <div><b style="color:var(--c1)">T</b> — ouvrir le terminal</div>
-        <div><b style="color:var(--c1)">P</b> — Puissance 4</div>
         <div><b style="color:var(--c1)">I</b> — calculateur IP</div>
+        <div><b style="color:var(--c1)">C</b> — écrire un message</div>
         <div><b style="color:var(--c1)">Échap</b> — fermer la fenêtre active</div>
       </div>`;
 
@@ -1147,6 +1195,17 @@ function shortcuts(){
   });
 }
 
+// ↑ ↑ ↓ ↓ ← → ← → B A — l'autre façon de tomber sur Space Invaders
+function konami(){
+  const seq = ['arrowup','arrowup','arrowdown','arrowdown','arrowleft','arrowright','arrowleft','arrowright','b','a'];
+  let i = 0;
+  window.addEventListener('keydown', (e) => {
+    const k = e.key.toLowerCase();
+    i = k === seq[i] ? i + 1 : (k === seq[0] ? 1 : 0);
+    if(i === seq.length){ i = 0; WM.launch('invaders'); }
+  });
+}
+
 function restorePrefs(){
   const t = store.get('theme', 'cyber');
   applyTheme(t);
@@ -1166,6 +1225,7 @@ trackTabs();
 contactForm();
 wireLaunchers();
 shortcuts();
+konami();
 
 // lancement direct via ?app=… (utilisé par les pages projet)
 const wanted = new URLSearchParams(location.search).get('app');
