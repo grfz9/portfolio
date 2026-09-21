@@ -1,27 +1,39 @@
 <!DOCTYPE html>
-<html lang="fr">
+<html lang="fr" data-theme="cyber">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Puissance 4 en Java — Billal Kaamouchi</title>
+<meta name="description" content="Puissance 4 développé en Java à l'IUT de Montreuil : programmation orientée objet, détection d'alignements, version web jouable contre une IA minimax.">
+<meta name="theme-color" content="#06080f">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='22' fill='%232ee6b6'/><text y='72' x='50' text-anchor='middle' font-size='58' font-family='monospace' font-weight='bold' fill='%2304140f'>BK</text></svg>">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="style.css">
 </head>
-<body>
+<body style="--ac:var(--c4)">
 
-<div class="top-nav">
-  <a href="../index.html" class="logo">BK.dev</a>
-  <a href="../index.html#projets" class="back-link">← Retour aux projets</a>
-</div>
+<div class="bg-aurora" aria-hidden="true"><i></i><i></i><i></i><i></i></div>
+<div class="bg-grid" aria-hidden="true"></div>
 
-<div class="wrap">
+<header class="topbar">
+  <nav class="wrap">
+    <a href="index.html" class="logo"><span class="blk">BK</span>Kaamouchi<span class="dim">/OS</span></a>
+    <a href="index.html#projets" class="back-link">← Retour aux projets</a>
+  </nav>
+</header>
+
+<div class="page-wrap">
   <header class="project-hero">
     <p class="eyebrow">Projet · Développement</p>
     <h1>Puissance 4 en Java</h1>
-    <p class="tagline">Un jeu de Puissance 4 jouable en ligne de commande, avec une logique de jeu complète et une structure orientée objet propre.</p>
+    <p class="tagline">Un jeu de Puissance 4 jouable en ligne de commande, avec une logique de jeu complète et une structure orientée objet propre — aujourd'hui rejouable dans le navigateur.</p>
     <div class="tags">
       <span class="tag">Java</span>
       <span class="tag">IntelliJ</span>
       <span class="tag">POO</span>
+      <span class="tag">Minimax</span>
       <span class="tag">IUT Montreuil</span>
     </div>
   </header>
@@ -32,30 +44,37 @@
   </section>
 
   <section class="block">
+    <h2>Démo jouable</h2>
+    <p>J'ai porté la logique de ce projet en JavaScript pour qu'elle soit jouable directement depuis le portfolio, avec une IA <strong>minimax</strong> (élagage alpha-bêta) proposée en trois niveaux de difficulté.</p>
+    <p><a class="btn btn-primary" href="index.html?app=puissance4">▶ Jouer contre l'IA</a></p>
+  </section>
+
+  <section class="block">
     <h2>Fonctionnalités</h2>
     <ul>
       <li>Plateau de jeu 7×6 géré entièrement en ligne de commande</li>
       <li>Alternance des tours entre deux joueurs avec validation des coups joués</li>
       <li>Détection automatique des victoires (alignements horizontaux, verticaux et diagonaux)</li>
       <li>Gestion des cas de match nul et des entrées invalides</li>
-      <li>Structure du code découpée en classes claires (Plateau, Joueur, Jeu) pour séparer les responsabilités</li>
+      <li>Structure du code découpée en classes claires (<code>Plateau</code>, <code>Joueur</code>, <code>Jeu</code>) pour séparer les responsabilités</li>
     </ul>
   </section>
 
   <section class="block">
     <h2>Détails techniques</h2>
     <p>Le programme est écrit en Java pur et développé avec IntelliJ IDEA. L'accent a été mis sur une architecture orientée objet : chaque composant du jeu (le plateau, les joueurs, la boucle de jeu) est isolé dans sa propre classe, ce qui rend le code plus lisible et plus facile à faire évoluer — par exemple pour ajouter une IA ou une interface graphique par la suite.</p>
-    <div class="callout"><strong>Compétence clé :</strong> conception orientée objet, découpage en classes et gestion d'états de jeu.</div>
+    <div class="callout"><b>Compétence clé :</b> conception orientée objet, découpage en classes et gestion d'états de jeu.</div>
   </section>
 
   <section class="block">
     <h2>Ce que j'en retiens</h2>
-    <p>Ce projet m'a permis de renforcer ma compréhension de la POO en Java, notamment sur la séparation des responsabilités entre classes et sur la gestion de la logique conditionnelle complexe (détection d'alignements dans toutes les directions).</p>
+    <p>Ce projet m'a permis de renforcer ma compréhension de la POO en Java, notamment sur la séparation des responsabilités entre classes et sur la gestion de la logique conditionnelle complexe (détection d'alignements dans toutes les directions). La version web en est la preuve : la même logique, transposée dans un autre langage.</p>
   </section>
 
+
   <div class="project-footer">
-    <a href="../index.html#projets">← Tous les projets</a>
-    <a href="../index.html#contact">Me contacter →</a>
+    <a href="index.html#projets">← Tous les projets</a>
+    <a href="index.html#contact">Me contacter →</a>
   </div>
 </div>
 
