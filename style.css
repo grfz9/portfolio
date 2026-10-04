@@ -22,6 +22,14 @@
   --clay:#a8492f;
   --clay-wash:#f6e9e5;
 
+  /* quatre familles, une par domaine */
+  --c1:#15654a;  --c1-wash:#e7efea;   /* réseaux et systèmes */
+  --c2:#a8492f;  --c2-wash:#f7eae6;   /* cybersécurité */
+  --c3:#8a6512;  --c3-wash:#f6efdf;   /* développement */
+  --c4:#5c6a1f;  --c4-wash:#eef1e2;   /* matériel */
+  --ac:var(--c1);
+  --ac-wash:var(--c1-wash);
+
   --radius:5px;
   --radius-lg:7px;
   --shadow:0 12px 28px -20px rgba(16,20,24,.45);
@@ -47,11 +55,22 @@
   --accent-wash:#243530;
   --clay:#d4785c;
   --clay-wash:#3a2a25;
+
+  --c1:#54b98c;  --c1-wash:#22342d;
+  --c2:#d4785c;  --c2-wash:#382822;
+  --c3:#c9a13f;  --c3-wash:#352f1f;
+  --c4:#9bb356;  --c4-wash:#2c3222;
   --shadow:0 12px 28px -20px rgba(0,0,0,.7);
   --on-accent:#0f2019;
   --on-clay:#2a110a;
 }
 :root{--on-accent:#ffffff;--on-clay:#ffffff;}
+
+@keyframes rise{from{opacity:0;transform:translateY(14px);}to{opacity:1;transform:none;}}
+@keyframes winIn{from{opacity:0;transform:scale(.97) translateY(8px);}to{opacity:1;transform:none;}}
+@keyframes flow{to{stroke-dashoffset:-120;}}
+@keyframes blip{0%,100%{opacity:.3;transform:scale(1);}50%{opacity:.95;transform:scale(1.45);}}
+@keyframes halo{0%{opacity:.55;transform:scale(1);}70%,100%{opacity:0;transform:scale(2.6);}}
 
 *{margin:0;padding:0;box-sizing:border-box;}
 body{
@@ -137,6 +156,14 @@ header.topbar{
 
 /* ---------- 6. Hero ---------- */
 .hero{padding:68px 0 64px;}
+.hero-grid{display:grid;grid-template-columns:minmax(0,1.15fr) minmax(0,.85fr);gap:48px;align-items:center;}
+@media (max-width:940px){.hero-grid{grid-template-columns:1fr;gap:36px;}}
+.anim .hero .in{opacity:0;animation:rise .55s var(--ease) forwards;}
+.anim .hero .in:nth-child(1){animation-delay:.02s;}
+.anim .hero .in:nth-child(2){animation-delay:.09s;}
+.anim .hero .in:nth-child(3){animation-delay:.16s;}
+.anim .hero .in:nth-child(4){animation-delay:.23s;}
+.anim .hero .in:nth-child(5){animation-delay:.30s;}
 .hero .eyebrow{
   font-family:var(--mono);font-size:.76rem;letter-spacing:.1em;text-transform:uppercase;
   color:var(--accent);margin-bottom:16px;
@@ -173,7 +200,7 @@ header.topbar{
 a.card:hover,button.card:hover,.card.clickable:hover{border-color:var(--line-strong);}
 
 .card-ico{
-  width:34px;height:34px;border-radius:var(--radius);display:grid;place-items:center;
+  width:36px;height:36px;border-radius:var(--radius);display:grid;place-items:center;
   background:var(--accent-wash);color:var(--accent);margin-bottom:14px;
 }
 .card-ico .ico{width:18px;height:18px;}
@@ -233,7 +260,7 @@ a.card:hover,button.card:hover,.card.clickable:hover{border-color:var(--line-str
 .tl-item:last-child{padding-bottom:0;}
 .tl-item::before{
   content:"";position:absolute;left:-30px;top:8px;width:7px;height:7px;border-radius:50%;
-  background:var(--accent);outline:3px solid var(--paper);
+  background:var(--ac);outline:3px solid var(--paper);
 }
 .tl-date{font-family:var(--mono);font-size:.74rem;color:var(--faint);margin-bottom:3px;}
 .tl-item h4{font-size:1rem;font-weight:620;margin-bottom:2px;}
@@ -495,4 +522,94 @@ canvas.game:focus{outline:none;border-color:var(--accent);}
 @media (prefers-reduced-motion:reduce){
   *,*::before,*::after{animation-duration:.001ms!important;transition-duration:.001ms!important;}
   #cursor-ring{display:none;}
+}
+
+
+/* ---------- 18. Schéma réseau du hero ---------- */
+.netfig{width:100%;height:auto;max-width:420px;margin-inline:auto;display:block;overflow:visible;}
+@media (max-width:940px){.netfig{max-width:340px;}}
+.netfig .link{stroke:var(--line-strong);stroke-width:1.2;fill:none;}
+.netfig .pkt path{
+  stroke-width:2.6;fill:none;stroke-linecap:round;
+  stroke-dasharray:7 113;stroke-dashoffset:0;
+}
+/* l'animation va sur chaque tracé, sinon les délais par ligne sont ignorés */
+.anim .netfig .pkt path{animation:flow 3.4s linear infinite;}
+.netfig .node{stroke-width:1.6;}
+.netfig .label{
+  font-family:var(--mono);font-size:9.5px;letter-spacing:.08em;
+  text-transform:uppercase;fill:var(--faint);
+}
+.netfig .blip circle{transform-box:fill-box;transform-origin:center;opacity:.3;}
+.anim .netfig .blip circle{animation:blip 2.8s ease-in-out infinite;}
+
+/* ---------- 19. Vie au survol ---------- */
+.navlinks a{position:relative;}
+.navlinks a::after{
+  content:"";position:absolute;left:11px;right:11px;bottom:3px;height:1.5px;
+  background:var(--accent);transform:scaleX(0);transform-origin:left;
+  transition:transform .22s var(--ease);
+}
+.navlinks a:hover::after{transform:scaleX(1);}
+
+.card{transition:border-color .18s var(--ease),transform .18s var(--ease),box-shadow .18s var(--ease);}
+a.card:hover,button.card:hover,.card[role="button"]:hover,.proj-card:hover{
+  border-color:var(--ac);transform:translateY(-3px);
+  box-shadow:0 10px 24px -18px rgba(16,20,24,.5);
+}
+.card .card-ico{
+  background:var(--ac);color:var(--on-accent);
+  transition:transform .18s var(--ease),box-shadow .18s var(--ease);
+}
+.card:hover .card-ico{box-shadow:0 5px 14px -8px var(--ac);}
+.card:hover .card-ico{transform:scale(1.08) rotate(-3deg);}
+.go{color:var(--ac);}
+.go .ico{transition:transform .18s var(--ease);}
+.card:hover .go .ico{transform:translateX(4px);}
+.item-list li::before{background:var(--ac);opacity:.55;}
+.proj-kind{color:var(--ac);}
+.chip{transition:border-color .16s var(--ease),color .16s var(--ease);}
+.card:hover .chip{border-color:var(--ac);color:var(--ac);}
+
+.btn{transition:.18s var(--ease);}
+.btn-primary:hover{transform:translateY(-1px);}
+.btn-ghost:hover{transform:translateY(-1px);}
+.icon-btn:hover{transform:translateY(-1px) rotate(-8deg);}
+.dock-item{transition:transform .2s var(--ease),background-color .18s,color .18s;}
+.anim .dock-item:hover{transform:translateY(-5px) scale(1.07);}
+.logo .mark{transition:transform .25s var(--ease);}
+.logo:hover .mark{transform:rotate(-8deg) scale(1.06);}
+
+/* une étiquette de section porte la couleur de sa famille */
+.section-tag{display:flex;align-items:center;gap:9px;color:var(--ac);}
+.section-tag::before{
+  content:"";width:18px;height:2px;border-radius:2px;background:currentColor;flex:0 0 auto;
+}
+
+/* la pastille du poste en cours respire */
+.tl-item:first-child::before{background:var(--ac);}
+.tl-item:first-child .pulse{
+  position:absolute;left:-30px;top:8px;width:7px;height:7px;border-radius:50%;
+  background:var(--ac);pointer-events:none;
+}
+.anim .tl-item:first-child .pulse{animation:halo 2.6s ease-out infinite;}
+.tl-date{color:var(--ac);}
+.tl-org{color:var(--muted);}
+
+/* fenêtres : une ouverture brève */
+.anim .win{animation:winIn .22s var(--ease);}
+.win.closing{opacity:0;transform:scale(.98);transition:opacity .14s,transform .14s;}
+
+/* apparition discrète à l'arrivée dans l'écran, 10 px, jamais plus */
+.anim .reveal{opacity:0;transform:translateY(10px);transition:opacity .45s var(--ease),transform .45s var(--ease);}
+.anim .reveal.seen{opacity:1;transform:none;}
+
+/* le curseur prend la couleur de ce qu'il survole */
+#cursor-ring{border-color:var(--ring,var(--accent));}
+#cursor-ring.hot{background:color-mix(in srgb,var(--ring,var(--accent)) 16%,transparent);}
+
+body.no-anim .netfig .pkt path,body.no-anim .netfig .blip circle{animation:none;}
+@media (prefers-reduced-motion:reduce){
+  .netfig .pkt path,.netfig .blip circle{animation:none!important;}
+  .reveal{opacity:1!important;transform:none!important;}
 }

@@ -37,8 +37,16 @@ const PROFILE = {
 /* Un anneau qui suit le pointeur avec un léger retard et réagit aux
    éléments interactifs. Le curseur du système reste visible : il porte la
    précision, l'anneau porte le mouvement. */
+function animEnabled(){ return store.get('anim', true) && !reduced(); }
+
+/* Une classe sur le corps de page commande toutes les animations : curseur,
+   apparitions, schéma du hero, ouverture des fenêtres. */
+function applyAnim(){
+  document.body.classList.toggle('anim', animEnabled());
+}
+
 function cursorRing(){
-  if(coarse() || reduced() || !store.get('anim', true)) return;
+  if(coarse() || !animEnabled() || $('#cursor-ring')) return;
 
   const ring = document.createElement('div');
   ring.id = 'cursor-ring';
@@ -61,7 +69,13 @@ function cursorRing(){
     if(e.pointerType !== 'mouse') return;
     tx = e.clientX; ty = e.clientY;
     if(!visible){ visible = true; ring.classList.add('on'); }
-    ring.classList.toggle('hot', !!(e.target.closest && e.target.closest(HOT)));
+    const hot = e.target.closest && e.target.closest(HOT);
+    ring.classList.toggle('hot', !!hot);
+    if(hot){
+      const owner = hot.closest('[style*="--ac"], .card, section');
+      const tint = owner ? getComputedStyle(owner).getPropertyValue('--ac').trim() : '';
+      ring.style.setProperty('--ring', tint || 'var(--accent)');
+    }
     kick();
   }, { passive: true });
 
@@ -90,6 +104,23 @@ function themeToggle(){
   const btn = $('#theme-toggle');
   if(btn) btn.addEventListener('click', () =>
     applyTheme(document.documentElement.dataset.theme === 'sombre' ? 'clair' : 'sombre'));
+}
+
+function revealOnScroll(){
+  const items = $$('.reveal');
+  if(!items.length) return;
+  const showAll = () => items.forEach(el => el.classList.add('seen'));
+  if(!animEnabled() || !('IntersectionObserver' in window)){ showAll(); return; }
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(en => {
+      if(!en.isIntersecting) return;
+      en.target.classList.add('seen');
+      io.unobserve(en.target);
+    });
+  }, { threshold: .08, rootMargin: '0px 0px -40px 0px' });
+  items.forEach(el => io.observe(el));
+  /* si quoi que ce soit échoue, le contenu réapparaît de lui-même */
+  setTimeout(showAll, 2500);
 }
 
 function trackTabs(){
@@ -150,9 +181,14 @@ const WM = (() => {
     const w = open.get(id);
     if(!w) return;
     try { w.cleanup && w.cleanup(); } catch {}
-    w.el.remove();
     open.delete(id);
     syncChrome();
+    if(document.body.classList.contains('anim')){
+      w.el.classList.add('closing');
+      setTimeout(() => w.el.remove(), 150);
+    } else {
+      w.el.remove();
+    }
   }
 
   function place(el, width, height){
@@ -516,8 +552,8 @@ const settingsApp = () => ({
         <div class="switch" id="sw-theme" role="switch" tabindex="0" aria-checked="${dark}" aria-label="Thème sombre"></div>
       </div>
       <div class="switch-row">
-        <div><strong>Animation du curseur</strong><p>L'anneau qui suit le pointeur. Sans effet sur les écrans tactiles.</p></div>
-        <div class="switch" id="sw-anim" role="switch" tabindex="0" aria-checked="${store.get('anim', true)}" aria-label="Animation du curseur"></div>
+        <div><strong>Animations</strong><p>Anneau du curseur, apparition des sections et paquets du schéma réseau.</p></div>
+        <div class="switch" id="sw-anim" role="switch" tabindex="0" aria-checked="${store.get('anim', true)}" aria-label="Animations"></div>
       </div>
       <h4>Raccourcis clavier</h4>
       <div class="kbd-list">
@@ -546,9 +582,11 @@ const settingsApp = () => ({
     bind($('#sw-theme', body), (on) => applyTheme(on ? 'sombre' : 'clair'));
     bind($('#sw-anim', body),  (on) => {
       store.set('anim', on);
+      applyAnim();
       const ring = $('#cursor-ring');
       if(!on && ring) ring.remove();
-      if(on && !$('#cursor-ring')) cursorRing();
+      if(on) cursorRing();
+      if(!on) $$('.reveal').forEach(el => el.classList.add('seen'));
     });
   }
 });
@@ -1076,8 +1114,10 @@ function konami(){
 }
 
 applyTheme(store.get('theme', 'clair'));
+applyAnim();
 themeToggle();
 cursorRing();
+revealOnScroll();
 trackTabs();
 contactForm();
 wireLaunchers();
