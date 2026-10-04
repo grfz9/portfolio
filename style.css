@@ -34,6 +34,8 @@
   --radius-lg:7px;
   --shadow:0 12px 28px -20px rgba(16,20,24,.45);
 
+  --dots:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24'%3E%3Ccircle cx='2' cy='2' r='1.6' fill='%2315654a' fill-opacity='0.13'/%3E%3C/svg%3E");
+
   --sans:ui-sans-serif,system-ui,-apple-system,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;
   --mono:ui-monospace,SFMono-Regular,"SF Mono",Menlo,Consolas,"Liberation Mono",monospace;
   --ease:cubic-bezier(.2,.7,.3,1);
@@ -61,6 +63,7 @@
   --c3:#c9a13f;  --c3-wash:#352f1f;
   --c4:#9bb356;  --c4-wash:#2c3222;
   --shadow:0 12px 28px -20px rgba(0,0,0,.7);
+  --dots:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24'%3E%3Ccircle cx='2' cy='2' r='1.6' fill='%2354b98c' fill-opacity='0.14'/%3E%3C/svg%3E");
   --on-accent:#0f2019;
   --on-clay:#2a110a;
 }
@@ -105,6 +108,8 @@ svg{display:block;}
 /* ---------- 3. Mise en page ---------- */
 .wrap{max-width:1080px;margin:0 auto;padding:0 28px;}
 section.band{padding:72px 0;border-top:1px solid var(--line);}
+section.band.tinted{background:var(--tint);border-top-color:transparent;}
+footer.site{background:var(--c1-wash);}
 
 .section-head{margin-bottom:36px;max-width:680px;}
 .section-tag{
@@ -155,9 +160,12 @@ header.topbar{
 .btn-mini{padding:7px 12px;font-size:.82rem;}
 
 /* ---------- 6. Hero ---------- */
-.hero{padding:68px 0 64px;}
-.hero-grid{display:grid;grid-template-columns:minmax(0,1.15fr) minmax(0,.85fr);gap:48px;align-items:center;}
-@media (max-width:940px){.hero-grid{grid-template-columns:1fr;gap:36px;}}
+.hero{
+  padding:76px 0 70px;
+  background-color:var(--c1-wash);
+  background-image:var(--dots);
+  border-bottom:1px solid var(--line);
+}
 .anim .hero .in{opacity:0;animation:rise .55s var(--ease) forwards;}
 .anim .hero .in:nth-child(1){animation-delay:.02s;}
 .anim .hero .in:nth-child(2){animation-delay:.09s;}
@@ -174,21 +182,18 @@ header.topbar{
 .cta-row{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:44px;}
 
 /* fiche de renseignements, des faits et rien d'autre */
-.facts{
-  border:1px solid var(--line);border-radius:var(--radius-lg);background:var(--surface);
-  display:grid;grid-template-columns:repeat(2,1fr);
+.facts{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;}
+@media (max-width:860px){.facts{grid-template-columns:repeat(2,1fr);}}
+@media (max-width:560px){.facts{grid-template-columns:1fr;}}
+.fact{
+  background:var(--surface);border:1px solid var(--line);border-left:3px solid var(--ac);
+  border-radius:var(--radius);padding:14px 16px;
+  transition:transform .18s var(--ease),box-shadow .18s var(--ease);
 }
-@media (max-width:640px){.facts{grid-template-columns:1fr;}}
-.fact{padding:16px 20px;border-bottom:1px solid var(--line);}
-.fact:nth-child(odd){border-right:1px solid var(--line);}
-.fact:last-child,.facts .fact:nth-last-child(2):nth-child(odd){border-bottom:none;}
-@media (max-width:640px){
-  .fact:nth-child(odd){border-right:none;}
-  .fact:nth-last-child(2):nth-child(odd){border-bottom:1px solid var(--line);}
-}
+.fact:hover{transform:translateY(-2px);box-shadow:0 8px 18px -16px rgba(16,20,24,.5);}
 .fact dt{
   font-family:var(--mono);font-size:.68rem;letter-spacing:.11em;text-transform:uppercase;
-  color:var(--faint);margin-bottom:5px;
+  color:var(--ac);margin-bottom:5px;
 }
 .fact dd{font-size:.95rem;color:var(--ink);}
 
@@ -525,24 +530,6 @@ canvas.game:focus{outline:none;border-color:var(--accent);}
 }
 
 
-/* ---------- 18. Schéma réseau du hero ---------- */
-.netfig{width:100%;height:auto;max-width:420px;margin-inline:auto;display:block;overflow:visible;}
-@media (max-width:940px){.netfig{max-width:340px;}}
-.netfig .link{stroke:var(--line-strong);stroke-width:1.2;fill:none;}
-.netfig .pkt path{
-  stroke-width:2.6;fill:none;stroke-linecap:round;
-  stroke-dasharray:7 113;stroke-dashoffset:0;
-}
-/* l'animation va sur chaque tracé, sinon les délais par ligne sont ignorés */
-.anim .netfig .pkt path{animation:flow 3.4s linear infinite;}
-.netfig .node{stroke-width:1.6;}
-.netfig .label{
-  font-family:var(--mono);font-size:9.5px;letter-spacing:.08em;
-  text-transform:uppercase;fill:var(--faint);
-}
-.netfig .blip circle{transform-box:fill-box;transform-origin:center;opacity:.3;}
-.anim .netfig .blip circle{animation:blip 2.8s ease-in-out infinite;}
-
 /* ---------- 19. Vie au survol ---------- */
 .navlinks a{position:relative;}
 .navlinks a::after{
@@ -608,8 +595,50 @@ a.card:hover,button.card:hover,.card[role="button"]:hover,.proj-card:hover{
 #cursor-ring{border-color:var(--ring,var(--accent));}
 #cursor-ring.hot{background:color-mix(in srgb,var(--ring,var(--accent)) 16%,transparent);}
 
-body.no-anim .netfig .pkt path,body.no-anim .netfig .blip circle{animation:none;}
 @media (prefers-reduced-motion:reduce){
-  .netfig .pkt path,.netfig .blip circle{animation:none!important;}
   .reveal{opacity:1!important;transform:none!important;}
+}
+
+
+/* ---------- 20. Bandeau de technologies ---------- */
+.ticker{
+  overflow:hidden;background:var(--surface);
+  border-top:1px solid var(--line);border-bottom:1px solid var(--line);
+  padding:13px 0;
+}
+.ticker-track{display:flex;gap:10px;width:max-content;}
+.anim .ticker-track{animation:marquee 60s linear infinite;}
+.ticker:hover .ticker-track{animation-play-state:paused;}
+@keyframes marquee{from{transform:translateX(0);}to{transform:translateX(-50%);}}
+.tchip{
+  font-family:var(--mono);font-size:.78rem;white-space:nowrap;
+  color:var(--ac);border:1px solid var(--ac);background:var(--surface);
+  padding:5px 13px;border-radius:var(--radius);
+}
+
+/* ---------- 21. Un trait qui se dessine sous les titres ---------- */
+.section-title{position:relative;padding-bottom:13px;}
+.section-title::after{
+  content:"";position:absolute;left:0;bottom:0;height:3px;width:54px;border-radius:2px;
+  background:var(--ac);transition:width .6s var(--ease) .15s;
+}
+.anim .reveal:not(.seen) .section-title::after{width:0;}
+
+/* ---------- 22. Les cartes montent une à une ---------- */
+.anim .reveal{opacity:0;transform:none;transition:opacity .4s var(--ease);}
+.anim .reveal.seen{opacity:1;}
+.anim .reveal .card{opacity:0;translate:0 14px;}
+.anim .reveal.seen .card{
+  opacity:1;translate:0 0;
+  transition:opacity .5s var(--ease),translate .5s var(--ease);
+}
+.anim .reveal.seen .card:nth-child(1){transition-delay:.05s;}
+.anim .reveal.seen .card:nth-child(2){transition-delay:.12s;}
+.anim .reveal.seen .card:nth-child(3){transition-delay:.19s;}
+.anim .reveal.seen .card:nth-child(4){transition-delay:.26s;}
+
+@media (prefers-reduced-motion:reduce){
+  .ticker-track{animation:none!important;}
+  .reveal,.reveal .card{opacity:1!important;translate:none!important;}
+  .section-title::after{width:54px!important;}
 }
