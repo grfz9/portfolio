@@ -1,451 +1,406 @@
 <!DOCTYPE html>
-<html lang="fr" data-theme="cyber">
+<html lang="fr" data-theme="clair">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Billal Kaamouchi — Réseau &amp; Cybersécurité</title>
-<meta name="description" content="Portfolio interactif de Billal Kaamouchi, étudiant BTS SIO SISR — réseaux, systèmes et cybersécurité. Terminal, outils réseau et projets jouables directement dans le navigateur.">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Billal Kaamouchi, étudiant BTS SIO SISR</title>
+<meta name="description" content="Étudiant en BTS SIO option SISR au lycée Voillaume. Recherche un stage de 8 semaines en réseau ou cybersécurité à partir de janvier 2027, en Île-de-France.">
 <meta name="author" content="Billal Kaamouchi">
-<meta property="og:title" content="Billal Kaamouchi — Réseau &amp; Cybersécurité">
-<meta property="og:description" content="Un portfolio interactif façon système d'exploitation : terminal, calculateur de sous-réseaux, projets jouables.">
-<meta property="og:type" content="website">
-<meta name="theme-color" content="#06080f">
-<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='22' fill='%232ee6b6'/><text y='72' x='50' text-anchor='middle' font-size='58' font-family='monospace' font-weight='bold' fill='%2304140f'>BK</text></svg>">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<meta property="og:title" content="Billal Kaamouchi, étudiant BTS SIO SISR">
+<meta property="og:description" content="Recherche un stage de 8 semaines en réseau ou cybersécurité à partir de janvier 2027, en Île-de-France.">
+<meta property="og:type" content="profile">
+<meta property="og:locale" content="fr_FR">
+<meta name="theme-color" content="#f7f6f2">
+<link rel="icon" href="favicon.ico" sizes="32x32">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<link rel="manifest" href="site.webmanifest">
 <link rel="stylesheet" href="style.css">
 <noscript><style>
-  /* sans JavaScript : tout le contenu reste lisible */
-  .reveal,.stagger > *{opacity:1!important;transform:none!important;}
-  .meter-bar i{width:var(--nojs,60%);}
-  #boot,.dock{display:none!important;}
+  /* sans JavaScript : les deux volets du parcours sont visibles, le reste disparaît */
+  .tl-panel[hidden]{display:block!important;}
+  .track-tabs,.dock,.tool-grid,[data-app],[data-project] .go{display:none!important;}
+  .proj-card{cursor:default;}
 </style></noscript>
 </head>
 <body>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false"><defs>
+<symbol id="i-terminal" viewBox="0 0 24 24"><polyline points="4 7 9 12 4 17"/><line x1="12" y1="17" x2="20" y2="17"/></symbol>
+<symbol id="i-network" viewBox="0 0 24 24"><rect x="9" y="3" width="6" height="5" rx="1"/><rect x="2" y="16" width="6" height="5" rx="1"/><rect x="16" y="16" width="6" height="5" rx="1"/><path d="M12 8v5M5 16v-3h14v3"/></symbol>
+<symbol id="i-server" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="6" rx="1"/><rect x="3" y="14" width="18" height="6" rx="1"/><path d="M7 7h.01M7 17h.01"/></symbol>
+<symbol id="i-shield" viewBox="0 0 24 24"><path d="M12 3l7 3v5.2c0 4.4-2.9 8.2-7 9.8-4.1-1.6-7-5.4-7-9.8V6z"/><polyline points="9 12 11 14 15 10"/></symbol>
+<symbol id="i-code" viewBox="0 0 24 24"><polyline points="9 8 5 12 9 16"/><polyline points="15 8 19 12 15 16"/></symbol>
+<symbol id="i-wrench" viewBox="0 0 24 24"><path d="M15.5 3.5a5 5 0 0 0-6.3 6.3L3.6 15.4a2 2 0 0 0 0 2.8l2.2 2.2a2 2 0 0 0 2.8 0l5.6-5.6a5 5 0 0 0 6.3-6.3l-3 3-3-3z"/></symbol>
+<symbol id="i-doc" viewBox="0 0 24 24"><path d="M14 3v5h5"/><path d="M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8z"/><path d="M9 13h6M9 17h4"/></symbol>
+<symbol id="i-mail" viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="2"/><polyline points="3.5 7 12 13 20.5 7"/></symbol>
+<symbol id="i-phone" viewBox="0 0 24 24"><path d="M7 3h3l1.8 4.5-2.3 1.4a11.5 11.5 0 0 0 5.6 5.6l1.4-2.3L21 14v3a2 2 0 0 1-2 2A16 16 0 0 1 5 5a2 2 0 0 1 2-2z"/></symbol>
+<symbol id="i-pin" viewBox="0 0 24 24"><path d="M12 21s7-5.7 7-11a7 7 0 1 0-14 0c0 5.3 7 11 7 11z"/><circle cx="12" cy="10" r="2.5"/></symbol>
+<symbol id="i-key" viewBox="0 0 24 24"><circle cx="7.5" cy="12" r="3.5"/><path d="M11 12h10M17.5 12v3.5M20.5 12v2.5"/></symbol>
+<symbol id="i-globe" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M3 12h18"/><path d="M12 3c2.6 2.9 2.6 15.1 0 18-2.6-2.9-2.6-15.1 0-18z"/></symbol>
+<symbol id="i-sliders" viewBox="0 0 24 24"><path d="M4 7h7M15 7h5M4 17h5M13 17h7M4 12h11M19 12h1"/><circle cx="13" cy="7" r="2"/><circle cx="11" cy="17" r="2"/><circle cx="17" cy="12" r="2"/></symbol>
+<symbol id="i-check" viewBox="0 0 24 24"><polyline points="4 12.5 9 17.5 20 6.5"/></symbol>
+<symbol id="i-arrow-ur" viewBox="0 0 24 24"><path d="M7 17 17 7M9 7h8v8"/></symbol>
+<symbol id="i-arrow-r" viewBox="0 0 24 24"><path d="M4 12h15M13 6l6 6-6 6"/></symbol>
+<symbol id="i-arrow-l" viewBox="0 0 24 24"><path d="M20 12H5M11 6l-6 6 6 6"/></symbol>
+<symbol id="i-x" viewBox="0 0 24 24"><path d="M6 6l12 12M18 6 6 18"/></symbol>
+<symbol id="i-minus" viewBox="0 0 24 24"><path d="M6 12h12"/></symbol>
+<symbol id="i-square" viewBox="0 0 24 24"><rect x="5" y="5" width="14" height="14" rx="2"/></symbol>
+<symbol id="i-refresh" viewBox="0 0 24 24"><path d="M20.5 12a8.5 8.5 0 1 1-2.5-6"/><polyline points="19 3 19 10 12 10"/></symbol>
+<symbol id="i-download" viewBox="0 0 24 24"><path d="M12 3v12M7.5 10.5 12 15l4.5-4.5M4 20h16"/></symbol>
+<symbol id="i-moon" viewBox="0 0 24 24"><path d="M20 14.2A8.5 8.5 0 0 1 9.8 4 8.5 8.5 0 1 0 20 14.2z"/></symbol>
+<symbol id="i-sun" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.2 4.2l1.5 1.5M18.3 18.3l1.5 1.5M2 12h2M20 12h2M4.2 19.8l1.5-1.5M18.3 5.7l1.5-1.5"/></symbol>
+<symbol id="i-chev-l" viewBox="0 0 24 24"><polyline points="14 6 8 12 14 18"/></symbol>
+<symbol id="i-chev-r" viewBox="0 0 24 24"><polyline points="10 6 16 12 10 18"/></symbol>
+<symbol id="i-dot" viewBox="0 0 24 24"><circle cx="12" cy="12" r="5"/></symbol>
+<symbol id="i-grid" viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></symbol>
+</defs></svg>
 
-<!-- ============ Séquence de démarrage ============ -->
-<div id="boot" aria-hidden="true">
-  <div style="font-size:1.1rem;font-weight:700;letter-spacing:.2em;">BK<span style="color:var(--text-faint)">/OS</span></div>
-  <div class="boot-log" id="bootlog"></div>
-  <div class="boot-bar"><i id="bootbar"></i></div>
-  <div class="boot-skip" id="bootskip">cliquez pour passer →</div>
-</div>
-
-<!-- ============ Décor ============ -->
-<div class="bg-aurora" aria-hidden="true"><i></i><i></i><i></i><i></i></div>
-<div class="bg-grid" aria-hidden="true"></div>
-<div class="bg-spot" aria-hidden="true"></div>
-<canvas id="bg-canvas" aria-hidden="true"></canvas>
-
-<!-- ============ Barre de navigation ============ -->
 <header class="topbar">
   <nav class="wrap">
-    <a href="#top" class="logo"><span class="blk">BK</span>Kaamouchi<span class="dim">/OS</span></a>
+    <a href="#haut" class="logo"><span class="mark"><svg class="ico" aria-hidden="true"><use href="#i-terminal"/></svg></span>Billal Kaamouchi</a>
     <div class="navlinks">
-      <a href="#competences">compétences</a>
-      <a href="#labo">labo</a>
-      <a href="#projets">projets</a>
-      <a href="#parcours">parcours</a>
-      <a href="#contact">contact</a>
+      <a href="#competences">Compétences</a>
+      <a href="#outils">Outils</a>
+      <a href="#projets">Projets</a>
+      <a href="#parcours">Parcours</a>
+      <a href="#contact">Contact</a>
     </div>
     <div class="nav-right">
-      <button class="icon-btn" data-app="terminal" title="Ouvrir le terminal (touche T)" aria-label="Ouvrir le terminal">▶_</button>
-      <button class="icon-btn" data-app="settings" title="Thèmes &amp; effets" aria-label="Thèmes et effets">◐</button>
-      <a class="btn btn-ghost btn-mini" href="CV_Billal_KAAMOUCHI.pdf" target="_blank" rel="noopener">CV ↗</a>
+      <button class="icon-btn" id="theme-toggle" title="Basculer le thème" aria-label="Basculer entre le thème clair et sombre">
+        <svg class="ico" aria-hidden="true"><use href="#i-moon"/></svg>
+      </button>
+      <a class="btn btn-ghost btn-mini" href="CV_Billal_KAAMOUCHI.pdf" target="_blank" rel="noopener">
+        <svg class="ico" aria-hidden="true"><use href="#i-doc"/></svg>CV
+      </a>
     </div>
   </nav>
 </header>
 
-<!-- ============ Hero ============ -->
-<section class="hero wrap" id="top">
-  <div class="hero-grid">
-    <div>
-      <div class="badge reveal"><span class="dot"></span> Disponible — stage de 8 semaines dès janvier 2027</div>
-      <h1 class="reveal">Billal<br><span class="grad-text">Kaamouchi</span></h1>
-      <div class="role reveal"><span id="roletext"></span><span class="caret">&nbsp;</span></div>
-      <p class="lede reveal">
-        Étudiant en <strong>BTS SIO — option SISR</strong>. Je conçois, configure et sécurise
-        des infrastructures réseau : de l'adressage IP à l'Active Directory, jusqu'aux bases du pentest.
-      </p>
-      <div class="cta-row reveal">
-        <a class="btn btn-primary" href="#contact">Me contacter</a>
-        <button class="btn btn-ghost" data-app="terminal">▶_ Ouvrir le terminal</button>
-        <a class="btn btn-ghost" href="CV_Billal_KAAMOUCHI.pdf" target="_blank" rel="noopener">📄 CV (PDF)</a>
-      </div>
-      <div class="stats reveal stagger">
-        <div class="stat" style="--sc:var(--c1)"><b data-count="8">0</b><span>semaines de stage</span></div>
-        <div class="stat" style="--sc:var(--c2)"><b data-count="2">0</b><span>certifications Cisco</span></div>
-        <div class="stat" style="--sc:var(--c3)"><b data-count="3">0</b><span>langues parlées</span></div>
-        <div class="stat" style="--sc:var(--c4)"><b data-count="3">0</b><span>projets réalisés</span></div>
-      </div>
-    </div>
-
-    <div class="hero-card reveal">
-      <div class="hc-bar">
-        <span class="d" style="background:#ff5f56"></span>
-        <span class="d" style="background:#ffbd2e"></span>
-        <span class="d" style="background:#27c93f"></span>
-        <span class="t">profil.json</span>
-      </div>
-<pre>{
-  <span class="k">"nom"</span>: <span class="s">"Billal Kaamouchi"</span>,
-  <span class="k">"formation"</span>: <span class="s">"BTS SIO · SISR"</span>,
-  <span class="k">"lieu"</span>: <span class="s">"Sevran (93) · IDF"</span>,
-  <span class="k">"focus"</span>: [
-    <span class="s">"réseaux"</span>, <span class="s">"systèmes"</span>,
-    <span class="s">"cybersécurité"</span>
-  ],
-  <span class="k">"certifs"</span>: <span class="n">2</span>,
-  <span class="k">"mobilite"</span>: <span class="s">"permis B + véhicule"</span>,
-  <span class="k">"statut"</span>: <span class="s">"en recherche de stage"</span>
-}
-<span class="c">// astuce : appuyez sur T pour ouvrir le
-// terminal — il cache deux ou trois choses.</span></pre>
-    </div>
+<main>
+<section class="hero wrap" id="haut">
+  <p class="eyebrow">BTS SIO, option SISR</p>
+  <h1>Billal Kaamouchi</h1>
+  <p class="lede">
+    Étudiant en BTS SIO option SISR au lycée Voillaume d'Aulnay-sous-Bois. Je cherche un
+    <strong>stage de 8 semaines en administration réseau ou en cybersécurité</strong>, à partir de
+    janvier 2027, en Île-de-France. Permis B et véhicule personnel.
+  </p>
+  <div class="cta-row">
+    <a class="btn btn-primary" href="#contact"><svg class="ico" aria-hidden="true"><use href="#i-mail"/></svg>Me contacter</a>
+    <a class="btn btn-ghost" href="CV_Billal_KAAMOUCHI.pdf" download><svg class="ico" aria-hidden="true"><use href="#i-download"/></svg>Télécharger le CV</a>
+    <button class="btn btn-ghost" data-app="terminal"><svg class="ico" aria-hidden="true"><use href="#i-terminal"/></svg>Ouvrir le terminal</button>
   </div>
+
+  <dl class="facts">
+    <div class="fact"><dt>Formation</dt><dd>BTS SIO, option SISR</dd></div>
+    <div class="fact"><dt>Établissement</dt><dd>Lycée Voillaume, Aulnay-sous-Bois</dd></div>
+    <div class="fact"><dt>Recherche</dt><dd>Stage de 8 semaines</dd></div>
+    <div class="fact"><dt>Disponibilité</dt><dd>À partir de janvier 2027</dd></div>
+    <div class="fact"><dt>Domaines</dt><dd>Réseau, systèmes, cybersécurité</dd></div>
+    <div class="fact"><dt>Localisation</dt><dd>Sevran (93), Île-de-France</dd></div>
+  </dl>
 </section>
 
-<!-- ============ Compétences ============ -->
 <section class="band wrap" id="competences">
-  <div class="section-head reveal">
-    <div class="section-tag">01 — Compétences</div>
+  <div class="section-head">
+    <p class="section-tag">01. Compétences</p>
     <h2 class="section-title">Ce que je sais faire</h2>
-    <p class="section-sub">Quatre domaines, travaillés en cours, en labo virtuel et en autoformation.</p>
+    <p class="section-sub">Acquis en cours, en laboratoire virtuel et en autoformation.</p>
   </div>
-  <div class="skills-grid stagger reveal">
+  <div class="skills-grid">
 
-    <article class="card skill-card" style="--ac:var(--c1)">
-      <div class="sk-head">
-        <div class="sk-ico">🖧</div>
-        <div><h3>Systèmes &amp; Réseaux</h3><div class="sk-sub">cœur de métier SISR</div></div>
-      </div>
-      <div class="meter">
-        <div class="meter-row"><span>Windows Server / AD</span><b>75%</b></div>
-        <div class="meter-bar"><i data-fill="75"></i></div>
-      </div>
-      <div class="meter">
-        <div class="meter-row"><span>TCP/IP &amp; adressage</span><b>85%</b></div>
-        <div class="meter-bar"><i data-fill="85"></i></div>
-      </div>
-      <div class="meter">
-        <div class="meter-row"><span>Linux</span><b>65%</b></div>
-        <div class="meter-bar"><i data-fill="65"></i></div>
-      </div>
-      <div class="pill-row">
-        <span class="pill">Windows Server</span><span class="pill">Linux</span><span class="pill">TCP/IP</span>
-        <span class="pill">VLAN</span><span class="pill">DHCP / DNS</span><span class="pill">Virtualisation</span>
-      </div>
+    <article class="card skill-card">
+      <div class="card-ico"><svg class="ico" aria-hidden="true"><use href="#i-server"/></svg></div>
+      <h3>Systèmes et réseaux</h3>
+      <p class="sk-note">Le cœur du programme SISR.</p>
+      <ul class="item-list">
+        <li>Windows Server et Active Directory</li>
+        <li>Linux en ligne de commande</li>
+        <li>Adressage IPv4 et découpage en sous-réseaux</li>
+        <li>VLAN, DHCP, DNS</li>
+        <li>Virtualisation avec VirtualBox</li>
+        <li>Maquettage sous Cisco Packet Tracer</li>
+      </ul>
     </article>
 
-    <article class="card skill-card" style="--ac:var(--c2)">
-      <div class="sk-head">
-        <div class="sk-ico">🛡️</div>
-        <div><h3>Cybersécurité</h3><div class="sk-sub">2 certifications Cisco</div></div>
-      </div>
-      <div class="meter">
-        <div class="meter-row"><span>Sécurité réseau</span><b>70%</b></div>
-        <div class="meter-bar"><i data-fill="70"></i></div>
-      </div>
-      <div class="meter">
-        <div class="meter-row"><span>Ethical hacking (bases)</span><b>60%</b></div>
-        <div class="meter-bar"><i data-fill="60"></i></div>
-      </div>
-      <div class="meter">
-        <div class="meter-row"><span>TryHackMe / labs</span><b>65%</b></div>
-        <div class="meter-bar"><i data-fill="65"></i></div>
-      </div>
-      <div class="pill-row">
-        <span class="pill">TryHackMe</span><span class="pill">Tests d'intrusion</span>
-        <span class="pill">Ethical Hacking</span><span class="pill">Pare-feu</span><span class="pill">Durcissement</span>
-      </div>
+    <article class="card skill-card">
+      <div class="card-ico"><svg class="ico" aria-hidden="true"><use href="#i-shield"/></svg></div>
+      <h3>Cybersécurité</h3>
+      <p class="sk-note">Deux certifications Cisco, complétées par de l'autoformation.</p>
+      <ul class="item-list">
+        <li>Sécurité des réseaux</li>
+        <li>Bases du test d'intrusion</li>
+        <li>Durcissement de postes de travail</li>
+        <li>Règles de pare-feu</li>
+        <li>Exercices pratiques sur TryHackMe</li>
+      </ul>
     </article>
 
-    <article class="card skill-card" style="--ac:var(--c3)">
-      <div class="sk-head">
-        <div class="sk-ico">⌨️</div>
-        <div><h3>Développement &amp; BDD</h3><div class="sk-sub">1 an de BUT informatique</div></div>
-      </div>
-      <div class="meter">
-        <div class="meter-row"><span>Java / POO</span><b>70%</b></div>
-        <div class="meter-bar"><i data-fill="70"></i></div>
-      </div>
-      <div class="meter">
-        <div class="meter-row"><span>SQL / MCD</span><b>60%</b></div>
-        <div class="meter-bar"><i data-fill="60"></i></div>
-      </div>
-      <div class="meter">
-        <div class="meter-row"><span>HTML / CSS / JS</span><b>55%</b></div>
-        <div class="meter-bar"><i data-fill="55"></i></div>
-      </div>
-      <div class="pill-row">
-        <span class="pill">Java</span><span class="pill">PhpMyAdmin</span><span class="pill">JMerise</span>
-        <span class="pill">Git</span><span class="pill">Python</span><span class="pill">Wix Studio</span>
-      </div>
+    <article class="card skill-card">
+      <div class="card-ico"><svg class="ico" aria-hidden="true"><use href="#i-code"/></svg></div>
+      <h3>Développement et bases de données</h3>
+      <p class="sk-note">Une année de BUT informatique à l'IUT de Montreuil.</p>
+      <ul class="item-list">
+        <li>Java et programmation orientée objet</li>
+        <li>Conception de bases de données avec JMerise</li>
+        <li>SQL et administration via PhpMyAdmin</li>
+        <li>HTML, CSS et JavaScript</li>
+        <li>Git et GitHub</li>
+      </ul>
     </article>
 
-    <article class="card skill-card" style="--ac:var(--c4)">
-      <div class="sk-head">
-        <div class="sk-ico">🔧</div>
-        <div><h3>Matériel &amp; Support</h3><div class="sk-sub">depuis 2022, en autodidacte</div></div>
-      </div>
-      <div class="meter">
-        <div class="meter-row"><span>Montage / upgrade PC</span><b>90%</b></div>
-        <div class="meter-bar"><i data-fill="90"></i></div>
-      </div>
-      <div class="meter">
-        <div class="meter-row"><span>Diagnostic de pannes</span><b>80%</b></div>
-        <div class="meter-bar"><i data-fill="80"></i></div>
-      </div>
-      <div class="meter">
-        <div class="meter-row"><span>Support utilisateur</span><b>75%</b></div>
-        <div class="meter-bar"><i data-fill="75"></i></div>
-      </div>
-      <div class="pill-row">
-        <span class="pill">Assemblage</span><span class="pill">BIOS / UEFI</span><span class="pill">Déploiement OS</span>
-        <span class="pill">Cisco Packet Tracer</span><span class="pill">VirtualBox</span>
-      </div>
+    <article class="card skill-card">
+      <div class="card-ico"><svg class="ico" aria-hidden="true"><use href="#i-wrench"/></svg></div>
+      <h3>Matériel et support</h3>
+      <p class="sk-note">Pratiqué en autonomie depuis 2022.</p>
+      <ul class="item-list">
+        <li>Montage et mise à niveau de PC</li>
+        <li>Diagnostic de pannes matérielles et logicielles</li>
+        <li>Installation et configuration de Windows</li>
+        <li>Réglages BIOS et UEFI</li>
+        <li>Assistance aux utilisateurs</li>
+      </ul>
     </article>
 
   </div>
 </section>
 
-<!-- ============ Laboratoire ============ -->
-<section class="band wrap" id="labo">
-  <div class="section-head reveal">
-    <div class="section-tag">02 — Laboratoire</div>
+<section class="band wrap" id="outils">
+  <div class="section-head">
+    <p class="section-tag">02. Outils</p>
     <h2 class="section-title">Des applications, pas des captures d'écran</h2>
     <p class="section-sub">
-      Tout s'ouvre dans des fenêtres que vous pouvez déplacer, redimensionner et empiler.
-      Le dock en bas de l'écran reste accessible à tout moment.
+      Chaque outil s'ouvre dans une fenêtre que vous pouvez déplacer, redimensionner et empiler.
+      La barre en bas de l'écran reste accessible à tout moment.
     </p>
   </div>
-  <div class="lab-grid stagger reveal">
-    <button class="card lab-card" data-app="terminal" style="--ac:var(--c1)">
-      <div class="lab-ico">▶_</div>
-      <h3>Terminal BK/OS</h3>
-      <p>Un vrai shell : <code>whoami</code>, <code>skills</code>, <code>ping</code>, historique, autocomplétion… et des commandes cachées.</p>
-      <div class="lab-go">lancer <span>→</span></div>
+  <div class="tool-grid">
+    <button class="card tool-card" data-app="terminal">
+      <div class="card-ico"><svg class="ico" aria-hidden="true"><use href="#i-terminal"/></svg></div>
+      <h3>Terminal</h3>
+      <p>Un shell écrit pour ce site : historique, autocomplétion et une poignée de commandes.</p>
+      <span class="go">Lancer <svg class="ico" aria-hidden="true"><use href="#i-arrow-r"/></svg></span>
     </button>
-    <button class="card lab-card" data-app="subnet" style="--ac:var(--c2)">
-      <div class="lab-ico">🖧</div>
-      <h3>Calculateur IP / CIDR</h3>
-      <p>Adresse réseau, broadcast, masque, plage d'hôtes, classe et type. L'outil que j'utilise en TP.</p>
-      <div class="lab-go">calculer <span>→</span></div>
+    <button class="card tool-card" data-app="subnet">
+      <div class="card-ico"><svg class="ico" aria-hidden="true"><use href="#i-network"/></svg></div>
+      <h3>Calculateur d'adressage</h3>
+      <p>Adresse réseau, broadcast, masque générique, plage d'hôtes et type d'adresse à partir d'une notation CIDR.</p>
+      <span class="go">Calculer <svg class="ico" aria-hidden="true"><use href="#i-arrow-r"/></svg></span>
     </button>
-    <button class="card lab-card" data-app="cv" style="--ac:var(--c3)">
-      <div class="lab-ico">📄</div>
-      <h3>CV intégré</h3>
+    <button class="card tool-card" data-app="cv">
+      <div class="card-ico"><svg class="ico" aria-hidden="true"><use href="#i-doc"/></svg></div>
+      <h3>CV</h3>
       <p>Le CV complet en PDF, consultable sans quitter la page et téléchargeable en un clic.</p>
-      <div class="lab-go">consulter <span>→</span></div>
+      <span class="go">Consulter <svg class="ico" aria-hidden="true"><use href="#i-arrow-r"/></svg></span>
     </button>
-    <button class="card lab-card" data-app="settings" style="--ac:var(--c5)">
-      <div class="lab-ico">◐</div>
-      <h3>Thèmes &amp; effets</h3>
-      <p>Quatre ambiances de couleurs, mémorisées d'une visite à l'autre, et un interrupteur pour les animations.</p>
-      <div class="lab-go">personnaliser <span>→</span></div>
+    <button class="card tool-card" data-app="contact">
+      <div class="card-ico"><svg class="ico" aria-hidden="true"><use href="#i-mail"/></svg></div>
+      <h3>Message</h3>
+      <p>Un formulaire qui prépare l'e-mail dans votre messagerie, sans passer par un serveur tiers.</p>
+      <span class="go">Écrire <svg class="ico" aria-hidden="true"><use href="#i-arrow-r"/></svg></span>
     </button>
   </div>
 </section>
 
-<!-- ============ Projets ============ -->
 <section class="band wrap" id="projets">
-  <div class="section-head reveal">
-    <div class="section-tag">03 — Projets</div>
+  <div class="section-head">
+    <p class="section-tag">03. Projets</p>
     <h2 class="section-title">Ce que j'ai construit</h2>
-    <p class="section-sub">Cliquez sur une carte pour ouvrir la fiche détaillée dans une fenêtre.</p>
+    <p class="section-sub">Cliquez sur un projet pour ouvrir sa fiche détaillée.</p>
   </div>
-  <div class="projects-grid stagger reveal">
-
-    <article class="card proj-card" data-project="puissance4" style="--ac:var(--c4)">
-      <div class="proj-top"><span class="proj-icon">♟️</span><span class="proj-tag">Java</span></div>
+  <div class="projects-grid">
+    <article class="card proj-card" data-project="puissance4" tabindex="0" role="button">
+      <p class="proj-kind">Java</p>
       <h3>Puissance 4 en Java</h3>
-      <p>Jeu en ligne de commande : logique complète, détection des alignements, architecture orientée objet.</p>
-      <div class="proj-pills"><span>Java</span><span>IntelliJ</span><span>POO</span></div>
-      <div class="proj-open">ouvrir la fiche <span>→</span></div>
+      <p>Jeu en ligne de commande : logique complète, détection des alignements dans les quatre directions, architecture orientée objet.</p>
+      <div class="chips"><span class="chip">Java</span><span class="chip">IntelliJ</span><span class="chip">POO</span></div>
+      <span class="go">Ouvrir la fiche <svg class="ico" aria-hidden="true"><use href="#i-arrow-r"/></svg></span>
     </article>
-
-    <article class="card proj-card" data-project="wix" style="--ac:var(--c3)">
-      <div class="proj-top"><span class="proj-icon">🌐</span><span class="proj-tag">Web</span></div>
+    <article class="card proj-card" data-project="wix" tabindex="0" role="button">
+      <p class="proj-kind">Web</p>
       <h3>Site vitrine Wix Studio</h3>
-      <p>Conception, design responsive et mise en ligne d'un site professionnel complet.</p>
-      <div class="proj-pills"><span>Wix Studio</span><span>Web design</span><span>SEO</span></div>
-      <div class="proj-open">ouvrir la fiche <span>→</span></div>
+      <p>Conception, design adaptatif et mise en ligne d'un site complet, de l'arborescence à la publication.</p>
+      <div class="chips"><span class="chip">Wix Studio</span><span class="chip">Design</span><span class="chip">Adaptatif</span></div>
+      <span class="go">Ouvrir la fiche <svg class="ico" aria-hidden="true"><use href="#i-arrow-r"/></svg></span>
     </article>
-
-    <article class="card proj-card" data-project="montage" style="--ac:var(--c1)">
-      <div class="proj-top"><span class="proj-icon">🔧</span><span class="proj-tag">Hardware</span></div>
-      <h3>Montage &amp; maintenance PC</h3>
-      <p>Assemblage, installation d'OS, diagnostic et réparation de pannes pour mon entourage depuis 2022.</p>
-      <div class="proj-pills"><span>Hardware</span><span>Windows</span><span>Diagnostic</span></div>
-      <div class="proj-open">ouvrir la fiche <span>→</span></div>
+    <article class="card proj-card" data-project="montage" tabindex="0" role="button">
+      <p class="proj-kind">Matériel</p>
+      <h3>Montage et maintenance PC</h3>
+      <p>Assemblage, installation de systèmes, diagnostic et réparation de pannes pour mon entourage depuis 2022.</p>
+      <div class="chips"><span class="chip">Matériel</span><span class="chip">Windows</span><span class="chip">Diagnostic</span></div>
+      <span class="go">Ouvrir la fiche <svg class="ico" aria-hidden="true"><use href="#i-arrow-r"/></svg></span>
     </article>
-
   </div>
 </section>
 
-<!-- ============ Parcours ============ -->
 <section class="band wrap" id="parcours">
-  <div class="section-head reveal">
-    <div class="section-tag">04 — Parcours</div>
-    <h2 class="section-title">Formation &amp; expérience</h2>
+  <div class="section-head">
+    <p class="section-tag">04. Parcours</p>
+    <h2 class="section-title">Formation et expérience</h2>
   </div>
-  <div class="track-tabs reveal">
-    <button class="track-tab active" data-track="formation">🎓 Formation</button>
-    <button class="track-tab" data-track="experience">💼 Expérience</button>
+  <div class="track-tabs" role="tablist" aria-label="Parcours">
+    <button class="track-tab" role="tab" id="tab-formation" aria-controls="panel-formation" aria-selected="true">Formation</button>
+    <button class="track-tab" role="tab" id="tab-experience" aria-controls="panel-experience" aria-selected="false">Expérience</button>
   </div>
 
-  <div class="tl-panel active" id="track-formation">
-    <div class="timeline">
-      <div class="tl-item reveal" style="--tc:var(--c1)">
-        <div class="tl-date">2025 — aujourd'hui</div>
-        <h4>BTS SIO — option SISR</h4>
-        <div class="tl-org">Lycée Voillaume · Aulnay-sous-Bois</div>
-        <p>Administration système (Windows Server, Linux), configuration réseau, virtualisation et fondamentaux de la cybersécurité.</p>
-      </div>
-      <div class="tl-item reveal" style="--tc:var(--c2)">
-        <div class="tl-date">2024 — juin 2025</div>
-        <h4>1<sup>re</sup> année de BUT Informatique</h4>
-        <div class="tl-org">IUT de Montreuil</div>
-        <p>Développement Java, conception de bases de données (JMerise, PhpMyAdmin), création de sites web.</p>
-      </div>
-      <div class="tl-item reveal" style="--tc:var(--c3)">
-        <div class="tl-date">2023</div>
+  <div class="tl-panel" id="panel-formation" role="tabpanel" aria-labelledby="tab-formation">
+    <ol class="timeline">
+      <li class="tl-item">
+        <p class="tl-date">2025 à aujourd'hui</p>
+        <h4>BTS SIO, option SISR</h4>
+        <p class="tl-org">Lycée Voillaume, Aulnay-sous-Bois</p>
+        <p>Administration de systèmes Windows Server et Linux, configuration réseau, virtualisation et fondamentaux de la cybersécurité.</p>
+      </li>
+      <li class="tl-item">
+        <p class="tl-date">2024 à juin 2025</p>
+        <h4>Première année de BUT informatique</h4>
+        <p class="tl-org">IUT de Montreuil</p>
+        <p>Développement Java, conception de bases de données avec JMerise et PhpMyAdmin, création de sites web.</p>
+      </li>
+      <li class="tl-item">
+        <p class="tl-date">2023</p>
         <h4>Baccalauréat STI2D</h4>
-        <div class="tl-org">Lycée Voillaume · Aulnay-sous-Bois</div>
-        <p>Sciences et Technologies de l'Industrie et du Développement Durable.</p>
-      </div>
-    </div>
+        <p class="tl-org">Lycée Voillaume, Aulnay-sous-Bois</p>
+        <p>Sciences et technologies de l'industrie et du développement durable.</p>
+      </li>
+    </ol>
   </div>
 
-  <div class="tl-panel" id="track-experience">
-    <div class="timeline">
-      <div class="tl-item" style="--tc:var(--c4)">
-        <div class="tl-date">Juil. — août 2026</div>
-        <h4>Ouvrier travaux publics (intérim)</h4>
-        <div class="tl-org">Moncocol · Aubervilliers</div>
-        <p>Chantiers de voirie et travaux routiers : maçonnerie, conduite d'engins. Rigueur, sécurité et travail en équipe.</p>
-      </div>
-      <div class="tl-item" style="--tc:var(--c5)">
-        <div class="tl-date">Mai — juin 2024</div>
-        <h4>Stage — technicien de maintenance</h4>
-        <div class="tl-org">DHL · Tremblay-en-France</div>
-        <p>Entretien des machines, dépannage et optimisation des équipements de production. Un vrai apprentissage du diagnostic méthodique.</p>
-      </div>
-      <div class="tl-item" style="--tc:var(--c2)">
-        <div class="tl-date">2019</div>
-        <h4>Stage — découverte ingénierie bâtiment</h4>
-        <div class="tl-org">Bobigny</div>
+  <div class="tl-panel" id="panel-experience" role="tabpanel" aria-labelledby="tab-experience" hidden>
+    <ol class="timeline">
+      <li class="tl-item">
+        <p class="tl-date">Juillet et août 2026</p>
+        <h4>Ouvrier travaux publics, en intérim</h4>
+        <p class="tl-org">Moncocol, Aubervilliers</p>
+        <p>Chantiers de voirie et travaux routiers : maçonnerie et conduite d'engins. Travail en équipe et respect strict des consignes de sécurité.</p>
+      </li>
+      <li class="tl-item">
+        <p class="tl-date">Mai et juin 2024</p>
+        <h4>Stage de technicien de maintenance</h4>
+        <p class="tl-org">DHL, Tremblay-en-France</p>
+        <p>Entretien des machines, dépannage et optimisation des équipements de production. Apprentissage du diagnostic méthodique.</p>
+      </li>
+      <li class="tl-item">
+        <p class="tl-date">2019</p>
+        <h4>Stage de découverte en ingénierie du bâtiment</h4>
+        <p class="tl-org">Bobigny</p>
         <p>Conception, planification et supervision de travaux de construction et de rénovation.</p>
-      </div>
-    </div>
+      </li>
+    </ol>
   </div>
 </section>
 
-<!-- ============ Certifications & langues ============ -->
 <section class="band wrap">
   <div class="split-2">
     <div>
-      <div class="section-head reveal">
-        <div class="section-tag">05 — Certifications</div>
+      <div class="section-head">
+        <p class="section-tag">05. Certifications</p>
         <h2 class="section-title">Certifications</h2>
       </div>
-      <div class="stagger reveal">
-        <article class="card cert-card" style="--ac:var(--c2)">
-          <div class="cert-ico">🛡️</div>
-          <div>
-            <h4>Introduction to Cybersecurity</h4>
-            <p>Cisco Networking Academy</p>
-            <a href="https://www.credly.com/badges/1866a347-dddb-42da-af25-bceb4869fcae/public_url" target="_blank" rel="noopener">Vérifier le badge ↗</a>
-          </div>
-        </article>
-        <article class="card cert-card" style="--ac:var(--c1)">
-          <div class="cert-ico">⚡</div>
-          <div>
-            <h4>Ethical Hacker</h4>
-            <p>Cisco Networking Academy</p>
-            <a href="https://www.credly.com/badges/05a6007b-a505-4af3-9598-4345756c97c1/public_url" target="_blank" rel="noopener">Vérifier le badge ↗</a>
-          </div>
-        </article>
-      </div>
+      <article class="card cert">
+        <div class="card-ico"><svg class="ico" aria-hidden="true"><use href="#i-shield"/></svg></div>
+        <div>
+          <h4>Introduction to Cybersecurity</h4>
+          <p>Cisco Networking Academy</p>
+          <a href="https://www.credly.com/badges/1866a347-dddb-42da-af25-bceb4869fcae/public_url" target="_blank" rel="noopener">
+            Vérifier le badge <svg class="ico" aria-hidden="true"><use href="#i-arrow-ur"/></svg>
+          </a>
+        </div>
+      </article>
+      <article class="card cert">
+        <div class="card-ico"><svg class="ico" aria-hidden="true"><use href="#i-check"/></svg></div>
+        <div>
+          <h4>Ethical Hacker</h4>
+          <p>Cisco Networking Academy</p>
+          <a href="https://www.credly.com/badges/05a6007b-a505-4af3-9598-4345756c97c1/public_url" target="_blank" rel="noopener">
+            Vérifier le badge <svg class="ico" aria-hidden="true"><use href="#i-arrow-ur"/></svg>
+          </a>
+        </div>
+      </article>
     </div>
     <div>
-      <div class="section-head reveal">
-        <div class="section-tag">06 — Langues</div>
+      <div class="section-head">
+        <p class="section-tag">06. Langues</p>
         <h2 class="section-title">Langues</h2>
       </div>
-      <div class="reveal">
-        <div class="lang-item" style="--ac:var(--c1)">
-          <div class="lang-top"><b>Français</b><span>C2 · natif</span></div>
-          <div class="meter-bar"><i data-fill="100"></i></div>
-        </div>
-        <div class="lang-item" style="--ac:var(--c2)">
-          <div class="lang-top"><b>Arabe</b><span>B2 · avancé</span></div>
-          <div class="meter-bar"><i data-fill="75"></i></div>
-        </div>
-        <div class="lang-item" style="--ac:var(--c3)">
-          <div class="lang-top"><b>Anglais</b><span>B1 · intermédiaire</span></div>
-          <div class="meter-bar"><i data-fill="55"></i></div>
-        </div>
-      </div>
+      <ul class="lang-list">
+        <li><b>Français</b><span>Langue maternelle</span></li>
+        <li><b>Arabe</b><span>Avancé, niveau B2</span></li>
+        <li><b>Anglais</b><span>Intermédiaire, niveau B1</span></li>
+      </ul>
     </div>
   </div>
 </section>
 
-<!-- ============ Contact ============ -->
 <section class="band wrap" id="contact">
-  <div class="section-head reveal">
-    <div class="section-tag">07 — Contact</div>
-    <h2 class="section-title">Travaillons ensemble</h2>
-    <p class="section-sub">Je recherche un <strong>stage de 8 semaines</strong> en réseau ou en cybersécurité, à partir de janvier 2027, en Île-de-France.</p>
+  <div class="section-head">
+    <p class="section-tag">07. Contact</p>
+    <h2 class="section-title">Me joindre</h2>
+    <p class="section-sub">
+      Pour une proposition de stage, une question ou simplement un échange : le plus simple reste l'e-mail.
+    </p>
   </div>
   <div class="contact-grid">
-    <div class="stagger reveal">
-      <a class="card contact-item" href="mailto:billalkaamouchi@gmail.com" style="--ac:var(--c1)">
-        <div class="ico">✉️</div><div><b>E-mail</b><span>billalkaamouchi@gmail.com</span></div>
-      </a>
-      <a class="card contact-item" href="tel:+33771179124" style="--ac:var(--c2)">
-        <div class="ico">☎️</div><div><b>Téléphone</b><span>+33 7 71 17 91 24</span></div>
-      </a>
-      <div class="card contact-item" style="--ac:var(--c3)">
-        <div class="ico">📍</div><div><b>Localisation</b><span>Sevran (93) · Île-de-France</span></div>
-      </div>
-      <div class="card contact-item" style="--ac:var(--c4)">
-        <div class="ico">🚗</div><div><b>Mobilité</b><span>Permis B · véhicule personnel</span></div>
-      </div>
-    </div>
-    <form class="reveal" id="contact-form">
-      <label class="field">Nom / entreprise
-        <input type="text" id="cf-name" placeholder="Votre nom" required>
+    <ul class="contact-list">
+      <li>
+        <svg class="ico" aria-hidden="true"><use href="#i-mail"/></svg>
+        <a href="mailto:billalkaamouchi@gmail.com"><dt>E-mail</dt><dd>billalkaamouchi@gmail.com</dd></a>
+      </li>
+      <li>
+        <svg class="ico" aria-hidden="true"><use href="#i-phone"/></svg>
+        <a href="tel:+33771179124"><dt>Téléphone</dt><dd>07 71 17 91 24</dd></a>
+      </li>
+      <li>
+        <svg class="ico" aria-hidden="true"><use href="#i-pin"/></svg>
+        <div><dt>Localisation</dt><dd>Sevran (93), Île-de-France</dd></div>
+      </li>
+      <li>
+        <svg class="ico" aria-hidden="true"><use href="#i-key"/></svg>
+        <div><dt>Mobilité</dt><dd>Permis B, véhicule personnel</dd></div>
+      </li>
+    </ul>
+    <form id="contact-form">
+      <label class="field"><span>Nom ou entreprise</span>
+        <input type="text" id="cf-name" autocomplete="organization" required>
       </label>
-      <label class="field">Objet
-        <input type="text" id="cf-subject" placeholder="Proposition de stage réseau">
+      <label class="field"><span>Objet</span>
+        <input type="text" id="cf-subject" value="Proposition de stage, réseau ou cybersécurité">
       </label>
-      <label class="field">Message
-        <textarea id="cf-message" placeholder="Bonjour Billal, …" required></textarea>
+      <label class="field"><span>Message</span>
+        <textarea id="cf-message" required></textarea>
       </label>
-      <button class="btn btn-primary" type="submit" style="align-self:flex-start">Envoyer le message →</button>
-      <div class="form-note">✓ Ouvre votre logiciel de messagerie, aucun serveur intermédiaire.</div>
+      <button class="btn btn-primary" type="submit" style="justify-self:start">
+        <svg class="ico" aria-hidden="true"><use href="#i-mail"/></svg>Préparer l'e-mail
+      </button>
+      <p class="form-note">
+        Ce formulaire ouvre votre logiciel de messagerie avec le message pré-rempli.
+        Rien n'est envoyé ni enregistré par ce site.
+      </p>
     </form>
   </div>
 </section>
+</main>
 
 <footer class="site">
-  © 2026 Billal Kaamouchi · BTS SIO SISR · construit à la main en HTML, CSS et JavaScript —
-  <a href="https://github.com/grfz9/portfolio" target="_blank" rel="noopener">code source ↗</a>
+  <div class="wrap">
+    <p>© 2026 Billal Kaamouchi. Site écrit à la main en HTML, CSS et JavaScript.</p>
+    <nav>
+      <a href="rgpd.html">Données personnelles et mentions légales</a>
+      <a href="https://github.com/grfz9/portfolio" target="_blank" rel="noopener">Code source</a>
+    </nav>
+  </div>
 </footer>
 
-<!-- ============ Couche fenêtres + dock ============ -->
 <div class="win-overlay" id="win-overlay"></div>
 <div id="win-layer"></div>
 
-<nav class="dock" id="dock" aria-label="Lanceur d'applications">
-  <button class="dock-item" data-app="terminal"   style="--dc:var(--c1)">▶_<span class="tip">Terminal</span></button>
-  <button class="dock-item" data-app="subnet"     style="--dc:var(--c2)">🖧<span class="tip">Calculateur IP</span></button>
+<nav class="dock" id="dock" aria-label="Applications">
+  <button class="dock-item" data-app="terminal"><svg class="ico" aria-hidden="true"><use href="#i-terminal"/></svg><span class="tip">Terminal</span></button>
+  <button class="dock-item" data-app="subnet"><svg class="ico" aria-hidden="true"><use href="#i-network"/></svg><span class="tip">Calculateur d'adressage</span></button>
   <span class="dock-sep"></span>
-  <button class="dock-item" data-app="cv"         style="--dc:var(--c3)">📄<span class="tip">CV</span></button>
-  <button class="dock-item" data-app="contact"    style="--dc:var(--c1)">✉️<span class="tip">Contact</span></button>
-  <button class="dock-item" data-app="settings"   style="--dc:var(--c2)">◐<span class="tip">Thèmes</span></button>
+  <button class="dock-item" data-app="cv"><svg class="ico" aria-hidden="true"><use href="#i-doc"/></svg><span class="tip">CV</span></button>
+  <button class="dock-item" data-app="contact"><svg class="ico" aria-hidden="true"><use href="#i-mail"/></svg><span class="tip">Message</span></button>
+  <button class="dock-item" data-app="settings"><svg class="ico" aria-hidden="true"><use href="#i-sliders"/></svg><span class="tip">Réglages</span></button>
 </nav>
 
 <script src="app.js"></script>
