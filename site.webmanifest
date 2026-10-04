@@ -1,0 +1,17 @@
+{
+  "name": "Billal Kaamouchi, portfolio",
+  "short_name": "B. Kaamouchi",
+  "description": "Portfolio d'un étudiant en BTS SIO option SISR : réseaux, systèmes et cybersécurité.",
+  "lang": "fr",
+  "start_url": "./index.html",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#f7f6f2",
+  "theme_color": "#f7f6f2",
+  "icons": [
+    { "src": "favicon.svg", "sizes": "any", "type": "image/svg+xml", "purpose": "any" },
+    { "src": "icon-192.png", "sizes": "192x192", "type": "image/png" },
+    { "src": "icon-512.png", "sizes": "512x512", "type": "image/png" },
+    { "src": "apple-touch-icon.png", "sizes": "180x180", "type": "image/png" }
+  ]
+}
