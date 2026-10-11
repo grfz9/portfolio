@@ -407,6 +407,25 @@ header.topbar{
 }
 .proj-open{font-family:var(--mono);font-size:.74rem;color:var(--ac);display:flex;align-items:center;gap:6px;transition:gap .2s;}
 .proj-card:hover .proj-open{gap:11px;}
+.proj-featured{
+  grid-column:1/-1;flex-direction:row;gap:28px;align-items:stretch;padding:28px;
+  border-color:color-mix(in srgb,var(--ac) 45%,var(--border));
+  background:linear-gradient(135deg,color-mix(in srgb,var(--ac) 9%,var(--surface)),var(--surface) 60%);
+  box-shadow:0 0 0 1px color-mix(in srgb,var(--ac) 18%,transparent),0 18px 50px -24px color-mix(in srgb,var(--ac) 55%,transparent);
+}
+.proj-featured .feat-body{flex:1.5;display:flex;flex-direction:column;gap:14px;min-width:0;}
+.proj-featured h3{font-size:1.5rem;line-height:1.2;}
+.proj-featured p{font-size:.92rem;flex:none;}
+.feat-actions{display:flex;flex-wrap:wrap;align-items:center;gap:10px;margin-top:4px;}
+.feat-actions .proj-open{margin-left:6px;}
+.feat-points{list-style:none;margin:0;padding:0;flex:1;display:grid;gap:10px;align-content:center;}
+.feat-points li{
+  display:flex;flex-direction:column;gap:2px;padding:12px 14px;border-radius:10px;
+  background:var(--surface-2);border:1px solid var(--border);
+}
+.feat-points b{font-size:.86rem;color:var(--ac);}
+.feat-points span{font-size:.78rem;color:var(--text-dim);}
+@media (max-width:880px){.proj-featured{flex-direction:column;padding:22px;}.proj-featured h3{font-size:1.25rem;}}
 
 /* ---------- 13. Parcours ---------- */
 .track-tabs{display:flex;gap:8px;margin-bottom:28px;flex-wrap:wrap;}
