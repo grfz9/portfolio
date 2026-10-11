@@ -415,7 +415,8 @@ function terminalApp(){
           <b>sécurité</b>   TryHackMe · ethical hacking · durcissement · pare-feu<br>
           <b>dev</b>        Java · SQL · HTML/CSS/JS · Git<br>
           <b>matériel</b>   montage PC · diagnostic · déploiement d'OS`),
-        projets: () => say(`1. <b>Puissance 4 en Java</b> — POO, détection d'alignements → <i>open puissance4</i><br>
+        projets: () => say(`★ <b>NetScan</b> — le Photomath du réseau, en ligne → <i>open netscan</i><br>
+          1. <b>Puissance 4 en Java</b> — POO, détection d'alignements → <i>open puissance4</i><br>
           2. <b>Site vitrine Wix Studio</b> — conception + mise en ligne<br>
           3. <b>Montage &amp; maintenance PC</b> — depuis 2022<br>
           <span class="warn">astuce :</span> <b>open p4</b> pour jouer contre l'IA.`),
@@ -477,7 +478,7 @@ function terminalApp(){
         if(c === 'open'){
           const alias = { p4: 'puissance4', puissance4: 'puissance4', ip: 'subnet', subnet: 'subnet',
                           cv: 'cv', contact: 'contact', reglages: 'settings', settings: 'settings',
-                          wix: 'proj-wix', montage: 'proj-montage' };
+                          netscan: 'proj-netscan', wix: 'proj-wix', montage: 'proj-montage' };
           const app = alias[(args[0] || '').toLowerCase()];
           if(app){ WM.launch(app); return say(`ouverture de <b>${esc(args[0])}</b>…`); }
           return say(`<span class="err">cible inconnue.</span> essayez : p4 · subnet · cv · contact · settings`);
@@ -1085,6 +1086,36 @@ const settingsApp = () => ({
 
 /* --- 6.f Fiches projet --- */
 const PROJECTS = {
+  netscan: {
+    title: 'NetScan', icon: '📡', accent: 'var(--c1)',
+    tags: ['JavaScript', 'API Claude', 'Cloudflare Workers', 'Stripe', 'PWA'],
+    live: 'https://grfz9.github.io/NetScan/',
+    repo: 'https://github.com/grfz9/NetScan',
+    html: `
+      <p><b>Contexte —</b> NetScan est le « Photomath du réseau » : on photographie un équipement réseau,
+      un écran de configuration ou un schéma de TP, et l'appli explique ce qu'elle voit. Elle est en ligne
+      et utilisable depuis un téléphone (installable comme une appli).</p>
+      <h4>Ce que fait l'appli</h4>
+      <ul>
+        <li>Schéma réseau avec le nom des ports à chaque bout des câbles</li>
+        <li>Façade de chaque équipement : ports branchés, libres ou inconnus, avec le détail au toucher</li>
+        <li>Configuration lue sur la photo ou proposée, avec explications et bouton « Copier »</li>
+        <li>Diagnostic : ce qui fonctionne, ce qui manque ou est faux, et comment le corriger</li>
+        <li>Raisonnement détaillé étape par étape, jusqu'à 10 photos par analyse</li>
+        <li>Calcul IP / VLSM hors ligne et export du compte rendu de TP en PDF ou Word</li>
+      </ul>
+      <h4>Sous le capot</h4>
+      <ul>
+        <li>Analyse d'image par l'API Claude, avec une réponse JSON imposée puis dessinée par l'appli</li>
+        <li>Relais Cloudflare Worker et base D1 pour les crédits, paiement par Stripe Checkout</li>
+        <li>Clé API gardée dans le navigateur de l'utilisateur, jamais dans le code</li>
+        <li>Déployé sur GitHub Pages, code source ouvert</li>
+      </ul>
+      <h4>Ce que j'en retiens</h4>
+      <p>Partir d'un besoin vécu en BTS SIO (comprendre vite un schéma ou une config de TP) et aller jusqu'à un
+      produit complet : interface, sécurité des clés, paiement, déploiement.</p>
+      <div class="callout"><b>Compétence clé :</b> réseaux (VLAN, adressage, VLSM), développement web, déploiement.</div>`
+  },
   puissance4: {
     title: 'Puissance 4 en Java', icon: '♟️', accent: 'var(--c4)', page: 'puissance4.html',
     tags: ['Java', 'IntelliJ', 'POO', 'IUT Montreuil'],
@@ -1156,7 +1187,8 @@ function projectApp(key){
         ${p.html}
         <div class="win-actions">
           ${p.live ? `<a class="btn btn-primary btn-mini" href="${p.live}" target="_blank" rel="noopener">Voir le site en ligne ↗</a>` : ''}
-          <a class="btn btn-ghost btn-mini" href="${p.page}">Page complète ↗</a>
+          ${p.repo ? `<a class="btn btn-ghost btn-mini" href="${p.repo}" target="_blank" rel="noopener">Code source ↗</a>` : ''}
+          ${p.page ? `<a class="btn btn-ghost btn-mini" href="${p.page}">Page complète ↗</a>` : ''}
           <button class="btn btn-ghost btn-mini" data-app="contact" type="button">En parler ✉️</button>
         </div>`;
     }
@@ -1172,6 +1204,7 @@ const APPS = {
   cv:         cvApp,
   contact:    contactApp,
   settings:   settingsApp,
+  'proj-netscan':    () => projectApp('netscan'),
   'proj-puissance4': () => projectApp('puissance4'),
   'proj-wix':        () => projectApp('wix'),
   'proj-montage':    () => projectApp('montage')
@@ -1182,6 +1215,7 @@ function wireLaunchers(){
   document.addEventListener('click', (e) => {
     const appBtn = e.target.closest('[data-app]');
     if(appBtn){ WM.launch(appBtn.dataset.app); return; }
+    if(e.target.closest('a')) return;
     const proj = e.target.closest('[data-project]');
     if(proj) WM.launch('proj-' + proj.dataset.project);
   });
