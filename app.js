@@ -216,8 +216,8 @@ function trackTabs(){
 
 const FORM_RULES = {
   name:    { min: 2,  max: 80,   label: 'votre nom ou celui de votre entreprise' },
-  subject: { min: 0,  max: 120,  label: "l'objet" },
-  message: { min: 10, max: 2000, label: 'votre message' }
+  subject: { min: 0,  max: 100,  label: "l'objet" },
+  message: { min: 10, max: 1000, label: 'votre message' }
 };
 
 function fieldError(v, rule){
@@ -232,13 +232,10 @@ function mailtoForm(form, fields, defaultSubject){
   form.noValidate = true;
   const errs = {};
   for(const [key, input] of Object.entries(fields)){
-    const rule = FORM_RULES[key];
-    input.maxLength = rule.max;
     const err = document.createElement('small');
     err.className = 'field-err';
     err.id = input.id + '-err';
-    err.setAttribute('aria-live', 'polite');
-    input.after(err);
+    (input.closest('label') || input).after(err);
     errs[key] = err;
     input.setAttribute('aria-describedby', err.id);
     input.addEventListener('input', () => {
@@ -1067,7 +1064,7 @@ const THEMES = [
   { id: 'cyber',  name: 'Cyber',  sw: ['#2ee6b6','#8b6cff','#4d9dff','#06080f'] },
   { id: 'aurora', name: 'Aurora', sw: ['#41e5ff','#b06bff','#ff5fa8','#080614'] },
   { id: 'solar',  name: 'Solar',  sw: ['#ffb340','#ff7a5c','#ffd166','#0d0704'] },
-  { id: 'light',  name: 'Clair',  sw: ['#00997a','#6d3fe0','#1f6fe0','#eef1f8'] }
+  { id: 'light',  name: 'Clair',  sw: ['#00654f','#5a30c4','#1a5dbc','#eef1f8'] }
 ];
 
 function applyTheme(id){

@@ -1,5 +1,5 @@
 User-agent: *
 Allow: /
-Disallow: /404.html
+Disallow: /portfolio/404.html
 
 Sitemap: https://grfz9.github.io/portfolio/sitemap.xml

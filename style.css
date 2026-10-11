@@ -21,7 +21,7 @@
 
   /* texte */
   --text:#e8edf8;
-  --text-dim:#8d9ab6;
+  --text-dim:#a3aec6;
   --text-faint:#8590a9;
 
   /* accents — 5 teintes utilisées sémantiquement */
@@ -626,7 +626,8 @@ canvas.game:focus{outline:none;border-color:var(--c1);box-shadow:0 0 0 2px color
 /* pages légales et 404 */
 .legal .block a{color:var(--ac,var(--c1));text-decoration:underline;text-underline-offset:3px;}
 .legal-date{font-family:var(--mono);font-size:.78rem;color:var(--text-faint);}
-.legal-table{width:100%;border-collapse:collapse;font-size:.86rem;display:block;overflow-x:auto;}
+.table-scroll{overflow-x:auto;}
+.legal-table{width:100%;min-width:560px;border-collapse:collapse;font-size:.86rem;}
 .legal-table th,.legal-table td{text-align:left;vertical-align:top;padding:10px 12px;border:1px solid var(--border);color:var(--text-dim);}
 .legal-table th{font-family:var(--mono);font-size:.74rem;text-transform:uppercase;letter-spacing:.06em;color:var(--text);background:var(--surface-2);}
 .legal-links{font-family:var(--mono);font-size:.78rem;color:var(--text-faint);text-align:center;padding:0 20px 96px;position:relative;z-index:1;}
