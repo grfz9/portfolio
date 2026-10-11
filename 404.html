@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
+<title>Page introuvable (erreur 404) · Billal Kaamouchi</title>
+<meta name="robots" content="noindex">
+<meta name="theme-color" content="#06080f">
+<link rel="icon" href="/portfolio/favicon.ico" sizes="any">
+<link rel="icon" href="/portfolio/img/favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="/portfolio/img/apple-touch-icon.png">
+<link rel="stylesheet" href="/portfolio/style.css">
+</head>
+<body class="page-404">
+
+<div class="bg-grid" aria-hidden="true"></div>
+
+<header class="topbar">
+  <nav class="wrap">
+    <a href="/portfolio/" class="logo"><span class="blk">BK</span>Kaamouchi<span class="dim">/OS</span></a>
+  </nav>
+</header>
+
+<main>
+  <div>
+    <p class="code grad-text">404</p>
+    <p class="term-line">billal@bkos:~$ cd <span id="path">cette-page</span><br><b>bash: cd: aucun fichier ou dossier de ce type</b></p>
+    <a class="btn btn-primary" href="/portfolio/">← Retour à l'accueil</a>
+  </div>
+</main>
+
+<footer class="legal-links"><a href="/portfolio/rgpd.html">Confidentialité (RGPD)</a> · <a href="/portfolio/cgu.html">Mentions légales &amp; CGU</a></footer>
+
+<script>
+  let p = location.pathname.replace(/^\/portfolio\//, '');
+  try { p = decodeURIComponent(p); } catch {}
+  if (p) document.getElementById('path').textContent = p.slice(0, 60);
+</script>
+</body>
+</html>

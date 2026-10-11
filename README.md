@@ -40,8 +40,19 @@ app.js            gestionnaire de fenêtres + applications
 puissance4.html   fiches projet détaillées
 wix-studio.html
 montage-pc.html
+rgpd.html         politique de confidentialité
+cgu.html          mentions légales et CGU
+404.html          page d'erreur (chemins absolus /portfolio/)
+fonts/            Inter et JetBrains Mono auto-hébergées (licence OFL)
+img/              favicons, icônes et image de partage 1200x630
+favicon.ico · site.webmanifest · sitemap.xml · robots.txt
 CV_Billal_KAAMOUCHI.pdf
 ```
+
+## Statistiques
+
+Mesure d'audience par [GoatCounter](https://www.goatcounter.com), sans cookie : créer un compte
+avec le code `grfz9` pour que le compteur `https://grfz9.goatcounter.com/count` reçoive les visites.
 
 ## Contact
 
