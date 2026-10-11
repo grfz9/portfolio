@@ -412,6 +412,13 @@ header.topbar{
 }
 .proj-open{font-family:var(--mono);font-size:.74rem;color:var(--ac);display:flex;align-items:center;gap:6px;transition:gap .2s;}
 .proj-card:hover .proj-open{gap:11px;}
+.proj-group{
+  grid-column:1/-1;display:flex;align-items:baseline;gap:12px;flex-wrap:wrap;margin-top:18px;
+  font-family:var(--mono);font-size:.86rem;text-transform:uppercase;letter-spacing:.1em;color:var(--ac);
+  padding-bottom:8px;border-bottom:1px solid var(--border);
+}
+.proj-group:first-child{margin-top:0;}
+.proj-group span{font-size:.74rem;text-transform:none;letter-spacing:0;color:var(--text-faint);}
 .proj-featured{
   grid-column:1/-1;flex-direction:row;gap:28px;align-items:stretch;padding:28px;
   border-color:color-mix(in srgb,var(--ac) 45%,var(--border));
