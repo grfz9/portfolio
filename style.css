@@ -4,6 +4,10 @@
    Utilisé par index.html et par les pages projet.
    ===================================================================== */
 
+/* ---------- 0. Polices auto-hébergées (variables, sous-ensemble latin) ---------- */
+@font-face{font-family:'Inter';font-style:normal;font-weight:100 900;font-display:swap;src:url(fonts/inter-var-latin.woff2) format('woff2');}
+@font-face{font-family:'JetBrains Mono';font-style:normal;font-weight:100 800;font-display:swap;src:url(fonts/jetbrains-mono-var-latin.woff2) format('woff2');}
+
 /* ---------- 1. Tokens & thèmes ---------- */
 :root{
   /* surfaces */
