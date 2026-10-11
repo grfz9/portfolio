@@ -214,17 +214,57 @@ function trackTabs(){
   });
 }
 
+const FORM_RULES = {
+  name:    { min: 2,  max: 80,   label: 'votre nom ou celui de votre entreprise' },
+  subject: { min: 0,  max: 120,  label: "l'objet" },
+  message: { min: 10, max: 2000, label: 'votre message' }
+};
+
+function fieldError(v, rule){
+  if(rule.min && !v) return `Merci d'indiquer ${rule.label}.`;
+  if(v.length < rule.min) return `${rule.label[0].toUpperCase() + rule.label.slice(1)} doit faire au moins ${rule.min} caractères.`;
+  if(v.length > rule.max) return `${rule.max} caractères maximum (actuellement ${v.length}).`;
+  return '';
+}
+
+/* fields : { name: input, subject: input, message: textarea } — valide puis ouvre la messagerie */
+function mailtoForm(form, fields, defaultSubject){
+  form.noValidate = true;
+  const errs = {};
+  for(const [key, input] of Object.entries(fields)){
+    const rule = FORM_RULES[key];
+    input.maxLength = rule.max;
+    const err = document.createElement('small');
+    err.className = 'field-err';
+    err.id = input.id + '-err';
+    err.setAttribute('aria-live', 'polite');
+    input.after(err);
+    errs[key] = err;
+    input.setAttribute('aria-describedby', err.id);
+    input.addEventListener('input', () => {
+      if(input.getAttribute('aria-invalid') === 'true') check(key, input);
+    });
+  }
+  function check(key, input){
+    const msg = fieldError(input.value.trim(), FORM_RULES[key]);
+    input.setAttribute('aria-invalid', msg ? 'true' : 'false');
+    errs[key].textContent = msg;
+    return !msg;
+  }
+  form.addEventListener('submit', (e) => {
+    e.preventDefault();
+    const bad = Object.entries(fields).filter(([k, i]) => !check(k, i));
+    if(bad.length){ bad[0][1].focus(); return; }
+    const subj = fields.subject.value.trim() || defaultSubject;
+    const body = `${fields.message.value.trim()}\n\n— ${fields.name.value.trim()}`;
+    window.location.href = `mailto:${PROFILE.mail}?subject=${encodeURIComponent(subj)}&body=${encodeURIComponent(body)}`;
+  });
+}
+
 function contactForm(){
   const f = $('#contact-form');
   if(!f) return;
-  f.addEventListener('submit', (e) => {
-    e.preventDefault();
-    const name = $('#cf-name').value.trim();
-    const subj = $('#cf-subject').value.trim() || 'Contact depuis le portfolio';
-    const msg  = $('#cf-message').value.trim();
-    const body = `${msg}\n\n— ${name}`;
-    window.location.href = `mailto:${PROFILE.mail}?subject=${encodeURIComponent(subj)}&body=${encodeURIComponent(body)}`;
-  });
+  mailtoForm(f, { name: $('#cf-name'), subject: $('#cf-subject'), message: $('#cf-message') }, 'Contact depuis le portfolio');
 }
 
 /* ---------- 5. Gestionnaire de fenêtres ---------- */
@@ -1017,13 +1057,8 @@ const contactApp = () => ({
       <div class="callout" style="margin-top:18px">
         <b>Direct :</b> ${PROFILE.mail} · ${PROFILE.tel}<br>${PROFILE.ville}
       </div>`;
-    $('#wc-form', body).addEventListener('submit', (e) => {
-      e.preventDefault();
-      const n = $('#wc-name', body).value.trim();
-      const s = $('#wc-subject', body).value.trim() || 'Contact';
-      const m = $('#wc-msg', body).value.trim();
-      window.location.href = `mailto:${PROFILE.mail}?subject=${encodeURIComponent(s)}&body=${encodeURIComponent(m + '\n\n— ' + n)}`;
-    });
+    mailtoForm($('#wc-form', body),
+      { name: $('#wc-name', body), subject: $('#wc-subject', body), message: $('#wc-msg', body) }, 'Contact');
     body.addEventListener('keydown', e => e.stopPropagation());
   }
 });
