@@ -452,10 +452,13 @@ function terminalApp(){
           <b>sécurité</b>   TryHackMe · ethical hacking · durcissement · pare-feu<br>
           <b>dev</b>        Java · SQL · HTML/CSS/JS · Git<br>
           <b>matériel</b>   montage PC · diagnostic · déploiement d'OS`),
-        projets: () => say(`★ <b>NetScan</b> — le Photomath du réseau, en ligne → <i>open netscan</i><br>
-          1. <b>Puissance 4 en Java</b> — POO, détection d'alignements → <i>open puissance4</i><br>
-          2. <b>Site vitrine Wix Studio</b> — conception + mise en ligne<br>
-          3. <b>Montage &amp; maintenance PC</b> — depuis 2022<br>
+        projets: () => say(`<span class="ok">bts-sio/</span><br>
+          ★ <b>NetScan</b> — le Photomath du réseau, en ligne → <i>open netscan</i><br>
+          <span class="ok">but-info/</span><br>
+          · <b>Puissance 4 en Java</b> — POO, détection d'alignements → <i>open puissance4</i><br>
+          · <b>Site vitrine Wix Studio</b> — conception + mise en ligne<br>
+          <span class="ok">perso/</span><br>
+          · <b>Montage &amp; maintenance PC</b> — depuis 2022<br>
           <span class="warn">astuce :</span> <b>open p4</b> pour jouer contre l'IA.`),
         stage: () => say(`🔎 <b>recherche : stage de 8 semaines</b><br>
           domaine ... réseau / cybersécurité<br>
