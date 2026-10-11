@@ -614,6 +614,22 @@ canvas.game:focus{outline:none;border-color:var(--c1);box-shadow:0 0 0 2px color
 }
 .back-link:hover{border-color:var(--c1);color:var(--c1);}
 
+/* pages légales et 404 */
+.legal .block a{color:var(--ac,var(--c1));text-decoration:underline;text-underline-offset:3px;}
+.legal-date{font-family:var(--mono);font-size:.78rem;color:var(--text-faint);}
+.legal-table{width:100%;border-collapse:collapse;font-size:.86rem;display:block;overflow-x:auto;}
+.legal-table th,.legal-table td{text-align:left;vertical-align:top;padding:10px 12px;border:1px solid var(--border);color:var(--text-dim);}
+.legal-table th{font-family:var(--mono);font-size:.74rem;text-transform:uppercase;letter-spacing:.06em;color:var(--text);background:var(--surface-2);}
+.legal-links{font-family:var(--mono);font-size:.78rem;color:var(--text-faint);text-align:center;padding:0 20px 96px;position:relative;z-index:1;}
+.legal-links a{color:var(--text-dim);text-decoration:underline;text-underline-offset:3px;}
+.legal-links a:hover{color:var(--c1);}
+footer.site .legal-links{padding:10px 0 0;}
+.page-404{min-height:100vh;display:flex;flex-direction:column;}
+.page-404 main{flex:1;display:grid;place-items:center;text-align:center;padding:40px 22px;position:relative;z-index:1;}
+.page-404 .code{font-family:var(--mono);font-size:clamp(4rem,18vw,8rem);font-weight:700;line-height:1;}
+.page-404 .term-line{font-family:var(--mono);font-size:.9rem;color:var(--text-dim);margin:18px 0 28px;}
+.page-404 .term-line b{color:var(--c-danger);}
+
 /* ---------- 20. Responsive & accessibilité ---------- */
 @media (max-width:760px){
   section.band{padding:70px 0;}
